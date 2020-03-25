@@ -1,0 +1,71 @@
+
+	
+	<c:if test="${action == null || modifOK == 'OK'}">
+		<div class="container-fluid" align="center">
+			<h3 class="text-success">Liste des Séries</h3>
+			<br>
+			
+			<div class="container-fluid">
+				<div>
+					<form method="POST" name="ajouterSerieForm"	action="<%=request.getContextPath()%>/Series">
+						Ajouter une série : 
+						<input type="text" name="nomSerie" id="nomSerie" placeholder="Nom de la série?"> 
+						<input type="text" name="annee" id="annee" placeholder="Année de création ?">
+						<input type="submit" value="Ajouter" name="btnAjouter" title="Ajouter cette série ?">
+					</form>
+				</div>
+			</div>
+			<br>
+		
+			<div style="max-width:1200px">
+				<TABLE class="table table-striped">
+					<c:forEach var="serie" items="${listeSerie}">
+						<tr>
+							<td>${serie.nom}</td>
+							<td width="40px">${serie.annee}</td>
+							<td width="40px">
+								<form action="<%=request.getContextPath()%>/Saisons" method="post">
+									<input type="hidden" value="${serie.id}" name="idSerie"
+										id="idSerie" /><input name="btnSaisons" type="submit"
+										id="saisons" value="Liste des saisons" />
+								</form>
+							</td>
+							<td width="40px">
+								<form action="<%=request.getContextPath()%>/Series" method="post">
+									<input type="hidden" value="${serie.id}" name="idSerie"
+										id="idSerie" />
+									<input type="hidden" value="modifier" name="action"
+										id="action" />
+									<input name="btnModifier" type="submit"
+										id="modifier" value="Modifier" />
+								</form>
+							</td>
+							<td width="40px">
+								<form action="<%=request.getContextPath()%>/Series" method="post">
+									<input type="hidden" value="${serie.id}" name="idSerie"
+										id="idSerie" /><input name="btnSupprimer" type="submit"
+										id="supprimer" value="Supprimer" />
+								</form>
+							</td>
+						</tr>
+					</c:forEach>
+				</TABLE>
+			</div>
+		</div>
+	</c:if>
+	
+	<c:if test="${action == 'modifier' || modifOK == 'KO'}">
+		<h3 class="text-success">Modifier cette série</h3>
+			<br>
+			<div>
+				<c:forEach var="serie" items="${listeSerie}">
+					<form method="POST" name="modifierSerieForm" action="<%=request.getContextPath()%>/Series">
+						<input type="hidden" value="${serie.id}" name="idSerie"	id="idSerie" />
+						<input type="hidden" value="modifier2" name="action"	id="action" />
+						<input type="text" name="nomSerie" id="nomSerie" value="${serie.nom}"><br> <br> 
+						<input type="text" name="annee" id="annee" value="${serie.annee}"><br> <br>
+						<input type="submit" value="Modifier" name="btnModifier2" title="Modifier cette série?">
+					</form>
+				</c:forEach>
+			</div>
+	</c:if>

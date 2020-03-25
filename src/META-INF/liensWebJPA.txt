@@ -1,0 +1,23 @@
+https://www.jmdoudoux.fr/java/dej/chap-jpa.htm
+http://orm.bdpedia.fr/introjpa.html
+https://www.tutorialspoint.com/jpa/jpa_jpql.htm
+https://thoughts-on-java.org/jpql/
+https://sql.sh/736-base-donnees-villes-francaises
+
+https://www.developpez.net/forums/d1024158/java/general-java/langage/modificateurs-private-protected-public-static/
+
+https://openclassrooms.com/fr/courses/626954-creez-votre-application-web-avec-java-ee/625580-la-persistance-des-donnees-avec-jpa
+
+configuration persistence.xml : exemple
+
+<?xml version="1.0"  encoding="UTF-8"?>
+<persistence  xmlns="http://java.sun.com/xml/ns/persistence"  
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+              version="1.0"  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+              http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+    <persistence-unit  name="MaBaseDeTestPU">
+         <provider>oracle.toplink.essentials.PersistenceProvider</provider>
+         <class>com.jmdoudoux.test.jpa.Personne</class>
+         <class>com.jmdoudoux.test.jpa.PersonnePK</class>
+    </persistence-unit>
+</persistence>
