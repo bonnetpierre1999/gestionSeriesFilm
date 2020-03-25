@@ -40,7 +40,7 @@ public class Test extends HttpServlet {
 			Saison s2 = new Saison(s1, 1);
 			daoMysql.ajouterSaison(s2);
 			Episode s3 = new Episode(s2, 1, true);
-			daoMysql.ajouterEpisode(s3);
+			daoMysql.ajouterEpisode(s3); 
 			
 		} catch (daoException e) {
 			// TODO Auto-generated catch block
