@@ -1,0 +1,58 @@
+
+	
+	<%@page import="fr.prive.gestionSeriesFilm.dal.daoMysql"%>
+<c:if test="${action == null}">
+		<div class="container-fluid" align="center">
+			<h3 class="text-success">Liste des Saisons</h3>
+			<br>
+			
+			<div class="container-fluid">
+				<div>
+					<form method="POST" name="ajouterSaisonsForm"	action="<%=request.getContextPath()%>/Saisons">
+						Nombre d'épisodes :  
+						<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+						<input type="hidden" value="${nbSaison + 1}" name="idSaison" id="idSaison" />
+						<input type="text" name="nbEpisodes" id="nbEpisodes" > 
+						<input type="submit" value="Ajouter une saison ${nbSaison + 1} ?" name="btnAjouter" title="Ajouter une saison ${nbSaison + 1}">
+					</form>
+				</div>
+			</div>
+			<br>
+		
+			<div style="max-width:1200px">
+				<TABLE class="table table-striped">
+					<c:forEach var="saison" items="${listeSaison}">
+						<tr>
+							<td>Saison ${saison.numSaison} (${saison.getNbEpisode()} episode(s))</td>
+							<td width="40px">
+								<form action="<%=request.getContextPath()%>/Episodes" method="post">
+									<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+									<input type="hidden" value="${saison.id}" name="idSaison"
+										id="idSaison" />
+									<input name="btnEpisodes" type="submit"
+										id="episode" value="Liste des episodes" />
+								</form>
+							</td>
+							<c:if test="${saison.numSaison == nbSaison}">
+								<td width="40px">
+									<form action="<%=request.getContextPath()%>/Saisons" method="post">
+										<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+										<input type="hidden" value="${saison.numSaison}" name="NumSaison" id="NumSaison" />
+										<input type="hidden" value="${saison.id}" name="idSaison"
+											id="idSaison" />
+										<input name="btnSupprimer" type="submit"
+											id="supprimer" value="Supprimer" />
+									</form>
+								</td>
+							</c:if>
+							
+							<c:if test="${saison.numSaison != nbSaison}">
+								<td width="40px"></td>
+							</c:if>
+						</tr>
+					</c:forEach>
+				</TABLE>
+			</div>
+		</div>
+	</c:if>
+

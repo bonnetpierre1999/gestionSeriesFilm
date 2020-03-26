@@ -79,7 +79,7 @@ public class ServletSerie extends HttpServlet {
 					int annee = Integer.parseInt(request.getParameter("annee"));
 					int id = Integer.parseInt(request.getParameter("idSerie"));
 					Serie s = new Serie(id,request.getParameter("nomSerie"), annee);
-					daoMysql.updateSerie(s);
+					daoMysql.ModifierSerie(s);
 					//on signale que l'update est passée en DB
 					modifEffectue = "ok";
 					request.setAttribute("modifOK", "OK");
@@ -97,16 +97,14 @@ public class ServletSerie extends HttpServlet {
 			}
 		}
 		
-		System.out.println(modifEffectue);
 		
 		//  modification d'une serie (avant modif)
 		if (request.getParameter("btnModifier") != null || "ko".equals(modifEffectue)) {
 			try {
-				Serie serie = daoMysql.afficherSerieById((Integer.parseInt(request.getParameter("idSerie"))));
+				Serie serie = daoMysql.AffichageSerieById((Integer.parseInt(request.getParameter("idSerie"))));
 				List<Serie> listeSerie = new ArrayList<Serie>();
 				listeSerie.add(serie);
 				request.setAttribute("listeSerie", listeSerie);
-				System.out.println(request.getParameter("idSerie"));
 			} catch (NumberFormatException | daoException e) {
 				request.setAttribute("erreur", "oui");
 			}
@@ -114,8 +112,7 @@ public class ServletSerie extends HttpServlet {
 		
 		// Affichage des series
 		if (request.getParameter("action") == null || request.getParameter("btnAjouter") != null|| request.getParameter("btnSupprimer") != null || "ok".equals(modifEffectue)) {
-			System.out.println(request.getParameter("action"));System.out.println(request.getParameter("btnAjouter"));System.out.println(request.getParameter("btnSupprimer"));
-			List<Serie> listeSerie = daoMysql.findAllSerie();
+			List<Serie> listeSerie = daoMysql.AffichageAllSerie();
 			request.setAttribute("listeSerie", listeSerie);
 		}
 

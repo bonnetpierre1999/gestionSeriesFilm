@@ -16,6 +16,8 @@ public class daoManager {
 	}
 	
 	public static void close(){
-		emf.close();
+		if (emf != null) {
+			emf.close();
+	      }
 	}
 }

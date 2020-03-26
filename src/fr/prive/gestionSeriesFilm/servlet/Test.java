@@ -35,12 +35,15 @@ public class Test extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			Serie s1 = new Serie("NCIS", 2003);
+			/*Serie s1 = new Serie("NCIS", 2003);
 			daoMysql.ajouterSerie(s1);
 			Saison s2 = new Saison(s1, 1);
 			daoMysql.ajouterSaison(s2);
 			Episode s3 = new Episode(s2, 1, true);
 			daoMysql.ajouterEpisode(s3); 
+			Episode s4 = new Episode(s2, 2, true);
+			daoMysql.ajouterEpisode(s4);*/ 
+			daoMysql.supprimerSaison(11);
 			
 		} catch (daoException e) {
 			// TODO Auto-generated catch block

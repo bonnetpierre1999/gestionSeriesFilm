@@ -21,7 +21,7 @@
 				<TABLE class="table table-striped">
 					<c:forEach var="serie" items="${listeSerie}">
 						<tr>
-							<td>${serie.nom}</td>
+							<td>${serie.nom} (${serie.getNbSaisons()} saison(s))</td>
 							<td width="40px">${serie.annee}</td>
 							<td width="40px">
 								<form action="<%=request.getContextPath()%>/Saisons" method="post">

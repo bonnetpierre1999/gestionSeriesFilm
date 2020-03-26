@@ -4,12 +4,36 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import fr.prive.gestionSeriesFilm.bo.*;
 
 public class daoMysql {
+	
+	// CrÈer un EM et ouvrir une transaction
+	public static EntityManager newEntityManager() {
+	   EntityManager em = daoManager.getEntityManager();
+	   em.getTransaction().begin();
+	   return (em);
+	}
 
+	// Fermer un EM et dÈfaire la transaction si nÈcessaire
+	public static void closeEntityManager(EntityManager em) {
+	   if (em != null) {
+	      if (em.isOpen()) {
+	         EntityTransaction t = em.getTransaction();
+	         if (t.isActive()) {
+	            try {
+	               t.rollback();
+	            } catch (PersistenceException e) {
+	            }
+	         }
+	         em.close();
+	      }
+	   }
+	}
+	
 	/**
 	 * Permet la crÈation d'une sÈrie en DB
 	 * @param serie
@@ -17,19 +41,15 @@ public class daoMysql {
 	 */
 	public static void ajouterSerie(Serie serie) throws daoException {
 		// Association au manager obligatoire
-		EntityManager em = daoManager.getEntityManager();
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityManager em = null;
 		// Acc√®s possible
 		try {
+			em = newEntityManager();
 			em.persist(serie);
-			et.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			et.rollback();
-			throw new daoException("Erreur lors de l'ajout de la serie " + serie + " : " + e.getMessage());
+			em.getTransaction().commit();
+		} finally {
+			closeEntityManager(em);
 		}
-		em.close();
 	}
 
 	/**
@@ -39,20 +59,15 @@ public class daoMysql {
 	 */
 	public static void ajouterSaison(Saison saison) throws daoException {
 		// Association au manager obligatoire
-		EntityManager em = daoManager.getEntityManager();
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityManager em = null;
 		// Acc√®s possible
 		try {
+			em = newEntityManager();
 			em.persist(saison);
-			et.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			et.rollback();
-			throw new daoException("Erreur lors de l'ajout de la saison " + saison + " : " + e.getMessage());
+			em.getTransaction().commit();
+		} finally {
+			closeEntityManager(em);
 		}
-		em.close();
-		
 	}
 
 	/**
@@ -62,20 +77,15 @@ public class daoMysql {
 	 */
 	public static void ajouterEpisode(Episode episode) throws daoException {
 		// Association au manager obligatoire
-		EntityManager em = daoManager.getEntityManager();
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityManager em = null;
 		// Acc√®s possible
 		try {
+			em = newEntityManager();
 			em.persist(episode);
-			et.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			et.rollback();
-			throw new daoException("Erreur lors de l'ajout de la episode " + episode + " : " + e.getMessage());
+			em.getTransaction().commit();
+		} finally {
+			closeEntityManager(em);
 		}
-		em.close();
-		
 	}
 	
 	/**
@@ -83,19 +93,16 @@ public class daoMysql {
 	 * @param film
 	 * @throws daoException
 	 */
-	public static void updateSerie(Serie serie) throws daoException {
+	public static void ModifierSerie(Serie serie) throws daoException {
 		// Association au manager obligatoire
-		EntityManager em = daoManager.getEntityManager();
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityManager em = null;
 		// Acc√®s possible
 		try {
+			em = newEntityManager();
 			em.merge(serie);
-			et.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			et.rollback();
-			throw new daoException("Erreur lors de la modification de la serie " + serie + " : " + e.getMessage());
+			em.getTransaction().commit();
+		} finally {
+			closeEntityManager(em);
 		}
 	}
 	
@@ -106,18 +113,15 @@ public class daoMysql {
 	 */
 	public static void supprimerSerie(int idSerie) throws daoException {
 		// Association au manager obligatoire
-		EntityManager em = daoManager.getEntityManager();
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		EntityManager em = null;
 		// Acc√®s possible
 		try {
+			em = newEntityManager();
 			Serie serie = em.find(Serie.class, idSerie);
 			em.remove(serie);
-			et.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			et.rollback();
-			throw new daoException("Erreur lors de la suppression de la serie n∞" + idSerie + " : " + e.getMessage());
+			em.getTransaction().commit();
+		} finally {
+			closeEntityManager(em);
 		}
 	}
 	
@@ -126,10 +130,17 @@ public class daoMysql {
 	 * Permet de sortir toutes les series de la DB
 	 * @return
 	 */
-	public static List<Serie> findAllSerie() {
-		TypedQuery<Serie> query = daoManager.getEntityManager().createNamedQuery("findTousSerie", Serie.class);
-		List<Serie> s = query.getResultList();
-		return s;
+	public static List<Serie> AffichageAllSerie() {
+		EntityManager em = daoManager.getEntityManager();
+		try {
+			TypedQuery<Serie> query = em.createNamedQuery("findTousSerie", Serie.class);
+			List<Serie> s = query.getResultList();
+			return s;
+		} finally {
+			if (em != null) {
+				closeEntityManager(em);
+	      }
+		}
 	}
 	
 	/**
@@ -138,7 +149,7 @@ public class daoMysql {
 	 * @return
 	 * @throws daoException
 	 */
-	public static Serie afficherSerieById(int idSalle) throws daoException {
+	public static Serie AffichageSerieById(int idSerie) throws daoException {
 		// Association au manager obligatoire
 		EntityManager em = daoManager.getEntityManager();
 		EntityTransaction et = em.getTransaction();
@@ -146,12 +157,64 @@ public class daoMysql {
 		Serie serie = null;
 		// Acc√®s possible
 		try {
-			serie = em.find(Serie.class, idSalle);
+			serie = em.find(Serie.class, idSerie);
+			return serie;
 		} catch (Exception e) {
-			throw new daoException("Erreur lors de l'acc√®s ‡ la sÈrie n∞" + serie + " : " + e.getMessage());
+			throw new daoException("Erreur lors de l'acc√®s ‡ la sÈrie n∞" + idSerie + " : " + e.getMessage());
+		} finally {
+			if (em != null) {
+				closeEntityManager(em);
+		      }
 		}
-		return serie;
+		
 	}
+
+	public static List<Saison> AffichageAllSaisonsByIdserie(int id) {
+		EntityManager em = daoManager.getEntityManager();
+		try {
+			TypedQuery<Saison> query = em.createNamedQuery("listeSaisonById", Saison.class);
+			query.setParameter("var", id);
+			List<Saison> s = query.getResultList();
+			return s;
+		} finally {
+			closeEntityManager(em);
+		}
+		
+	}
+	
+	public static List<Episode> AffichageAllEpisodesByIdsaison(int id) {
+		EntityManager em = daoManager.getEntityManager();
+		try {
+			TypedQuery<Episode> query = em.createNamedQuery("listeEpisodeById", Episode.class);
+			query.setParameter("var", id);
+			List<Episode> s = query.getResultList();
+			return s;
+		} finally {
+			closeEntityManager(em);
+		}
+		
+	}
+
+	public static void supprimerSaison(int idSaison) throws daoException {
+		// Association au manager obligatoire
+		EntityManager em = daoManager.getEntityManager();
+		EntityTransaction et = em.getTransaction();
+		et.begin();
+		// Acc√®s possible
+		try {
+			Saison saison = em.find(Saison.class, idSaison);
+			em.remove(saison);
+			et.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			et.rollback();
+			throw new daoException("Erreur lors de la suppression de la saison n∞" + idSaison + " : " + e.getMessage());
+		} finally {
+			em.close();
+		}
+	}
+
+	
 	
 	/*
 	public static List<Employe> connexion(String login, String mdp) {
