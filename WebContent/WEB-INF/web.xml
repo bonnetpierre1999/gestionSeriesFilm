@@ -14,7 +14,6 @@
 	<servlet>
 		<servlet-name>ServletSerie</servlet-name>
 		<servlet-class>fr.prive.gestionSeriesFilm.servlet.ServletSerie</servlet-class>
-		<!-- load du appelPageJspVisible via ce fichier par ordre -->
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ServletSerie</servlet-name>
@@ -25,10 +24,19 @@
 	<servlet>
 		<servlet-name>ServletSaisons</servlet-name>
 		<servlet-class>fr.prive.gestionSeriesFilm.servlet.ServletSaisons</servlet-class>
-		<!-- load du appelPageJspVisible via ce fichier par ordre -->
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ServletSaisons</servlet-name>
 		<url-pattern>/Saisons</url-pattern>
+	</servlet-mapping>
+	
+	<!-- servlet des episodes -->
+	<servlet>
+		<servlet-name>ServletEpisode</servlet-name>
+		<servlet-class>fr.prive.gestionSeriesFilm.servlet.ServletEpisode</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServletEpisode</servlet-name>
+		<url-pattern>/Episodes</url-pattern>
 	</servlet-mapping>
 </web-app>

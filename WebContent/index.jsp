@@ -11,10 +11,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
-<!-- http://www.favicon.pro/fr/ -->
-<link rel="shortcut icon" type="image/x-icon"
-	href="./images/favicon.ico">
-<script type="text/javascript" src="js/clock.js"></script>
+<link media="all" rel="stylesheet" href="<%=request.getContextPath()%>/CSS/Styles.css" type="text/css"/>
 </head>
 <body style="height:100%; position: relative;">
 
@@ -34,7 +31,10 @@
 			<c:if test="${nomMenu == 'saison'}">
 				<%@include file="./WEB-INF/JSPCentral/Saisons.jspf"%>	
 			</c:if>
-			
+			<c:if test="${nomMenu == 'episode'}">
+				<%@include file="./WEB-INF/JSPCentral/Episodes.jspf"%>	
+			</c:if>
+			<br>
 		</div>
 		<!-- https://www.javatpoint.com/jsp-include-action -->
 	</div>

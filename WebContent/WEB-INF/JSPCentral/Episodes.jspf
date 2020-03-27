@@ -1,0 +1,87 @@
+	
+	<%@page import="fr.prive.gestionSeriesFilm.dal.daoMysql"%>
+<c:if test="${action == null}">
+		<div class="container-fluid" align="center">
+		
+			<c:if test="${serieChoisie != null}">
+				<h2>${serieChoisie.nom}</h2>
+			</c:if>
+			<c:if test="${saisonChoisie != null}">
+				<h2>Saison ${saisonChoisie.numSaison}</h2>
+			</c:if>
+			<br>
+			
+			<div class="container-fluid">
+				<div>
+					<form method="POST" name="ajouterEpisodeForm" action="<%=request.getContextPath()%>/Episodes">
+						Nombre d'épisodes :  
+						<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+						<input type="hidden" value="${idSaison}" name="idSaison" id="idSaison" />
+						<input type="hidden" value="${nbEpisode + 1}" name="numEpisode" id="numEpisode" />
+						<input type="submit" value="Ajouter un épisode ${nbEpisode + 1}" name="btnAjouter" title="Ajouter un épisode ${nbEpisode + 1}">
+					</form>
+				</div>
+			</div>
+			<br>
+		
+			<div style="max-width:1200px">
+				<TABLE class="table table-striped">
+					<c:forEach var="episode" items="${listeEpisode}">
+						<tr>
+							
+						<c:if test="${episode.vu == true}">
+							<td width="40px"><div id="cerclevert"></div></td>
+						</c:if>
+						<c:if test="${episode.vu == false}">
+							<td width="40px"><div id="cerclerouge"></div></td>
+						</c:if>
+						<td>Episode ${episode.numEpisode}</td>
+						<td width="40px">
+							<form action="<%=request.getContextPath()%>/Episodes" method="post">
+								<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+								<input type="hidden" value="${idSaison}" name="idSaison" id="idSaison" />
+								<input type="hidden" value="${episode.id}" name="idEpisode" id="idEpisode" />
+								<input type="hidden" value="${episode.numEpisode}" name="numEpisode" id="numEpisode" />
+								<c:if test="${episode.vu == true}">
+									<input type="hidden" value="0" name="vue" id="vue" />
+									<input name="btnVU" type="submit" value="Non vu" style="width:75px" />
+								</c:if>
+								<c:if test="${episode.vu == false}">
+									<input type="hidden" value="1" name="vue" id="vue" />
+									<input name="btnVU" type="submit" value="Vu" style="width:75px" />
+								</c:if>
+							</form>
+						</td>
+							
+							
+						<c:if test="${episode.numEpisode == nbEpisode}">
+							<td width="40px">
+								<form action="<%=request.getContextPath()%>/Episodes" method="post">
+									<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+									<input type="hidden" value="${idSaison}" name="idSaison" id="idSaison" />
+									<input type="hidden" value="${episode.id}" name="idEpisode" id="idEpisode" />
+									<input name="btnSupprimer" type="submit"
+										id="supprimer" value="Supprimer" />
+								</form>
+							</td>
+						</c:if>
+						<c:if test="${episode.numEpisode != nbEpisode}">
+							<td width="40px"></td>
+						</c:if>
+						</tr>
+					</c:forEach>
+				</TABLE>
+			</div>
+			
+			<div class="container-fluid">
+				<div>
+					<form method="POST" name="retourSeries"	action="<%=request.getContextPath()%>/Saisons">
+						<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+						<input type="submit" value="Retourner à la liste des séries" name="btnRetour" title="Retourner à la liste des saisons">
+					</form>
+				</div>
+			</div>
+			
+		</div>
+	</c:if>
+

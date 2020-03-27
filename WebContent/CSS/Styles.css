@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+#cerclevert {
+    width: 25px;
+    height: 25px;
+    border-radius: 20px;
+    background: green;
+}
+
+#cerclerouge {
+    width: 25px;
+    height: 25px;
+    border-radius: 20px;
+    background: red;
+}

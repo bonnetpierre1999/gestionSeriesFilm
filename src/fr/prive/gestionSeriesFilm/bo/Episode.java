@@ -11,12 +11,14 @@ import javax.persistence.NamedQuery;
 
 import org.codehaus.jackson.annotate.JsonManagedReference;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @NamedQueries({ 
 	@NamedQuery(name = "listeEpisodeById", query = "FROM Episode e where saison_id = :var order by numEpisode")
 })
@@ -42,6 +44,8 @@ public class Episode {
 		this.vu = vu;
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		return "Episode [id=" + id + ", saison=" + saison + ", numEpisode=" + numEpisode + ", vu=" + vu + "]";
