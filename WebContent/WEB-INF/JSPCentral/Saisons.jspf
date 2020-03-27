@@ -3,7 +3,10 @@
 	<%@page import="fr.prive.gestionSeriesFilm.dal.daoMysql"%>
 <c:if test="${action == null}">
 		<div class="container-fluid" align="center">
-			<h3 class="text-success">Liste des Saisons</h3>
+		
+			<c:if test="${serieChoisie != null}">
+				<h2>${serieChoisie.nom}</h2>
+			</c:if>
 			<br>
 			
 			<div class="container-fluid">
@@ -53,6 +56,15 @@
 					</c:forEach>
 				</TABLE>
 			</div>
+			
+			<div class="container-fluid">
+				<div>
+					<form method="POST" name="retourSeries"	action="<%=request.getContextPath()%>/Series">
+						<input type="submit" value="Retourner à la liste des séries" name="btnRetour" title="Retourner à la liste des séries">
+					</form>
+				</div>
+			</div>
+			
 		</div>
 	</c:if>
 

@@ -1,7 +1,7 @@
 <!-- pour pouvoir l'inclure par la suite -->
 <div class="container-fluid" align="center">
 	<br>
-	<h1>Gestion des séries et films</h1>
+	<h1 class="text-success">Gestion des séries et films</h1>
 	<div>
 		<button type="button" name="Series" class="btn btn-primary"
 			onclick="window.location.href = '<%=request.getContextPath()%>/Series';">SERIES</button>

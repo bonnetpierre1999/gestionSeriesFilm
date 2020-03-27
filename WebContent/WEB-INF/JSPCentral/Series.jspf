@@ -2,7 +2,7 @@
 	
 	<c:if test="${action == null || modifOK == 'OK'}">
 		<div class="container-fluid" align="center">
-			<h3 class="text-success">Liste des Séries</h3>
+			<h3>Liste des Séries</h3>
 			<br>
 			
 			<div class="container-fluid">
@@ -65,6 +65,7 @@
 						<input type="text" name="nomSerie" id="nomSerie" value="${serie.nom}"><br> <br> 
 						<input type="text" name="annee" id="annee" value="${serie.annee}"><br> <br>
 						<input type="submit" value="Modifier" name="btnModifier2" title="Modifier cette série?">
+						<input type="submit" value="Annuler" name="btnAnnuler" title="Annuler">
 					</form>
 				</c:forEach>
 			</div>

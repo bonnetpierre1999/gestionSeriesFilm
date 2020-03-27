@@ -97,6 +97,12 @@ public class ServletSerie extends HttpServlet {
 			}
 		}
 		
+		if (request.getParameter("btnAnnuler") != null) {
+			//on signale qu'on a annulé, ce qui nous fera retourner sur les séries sans modifier la DB
+			modifEffectue = "ok";
+			request.setAttribute("modifOK", "OK");
+
+		}
 		
 		//  modification d'une serie (avant modif)
 		if (request.getParameter("btnModifier") != null || "ko".equals(modifEffectue)) {
@@ -111,7 +117,7 @@ public class ServletSerie extends HttpServlet {
 		}
 		
 		// Affichage des series
-		if (request.getParameter("action") == null || request.getParameter("btnAjouter") != null|| request.getParameter("btnSupprimer") != null || "ok".equals(modifEffectue)) {
+		if (request.getParameter("action") == null || request.getParameter("btnAjouter") != null || request.getParameter("btnSupprimer") != null || "ok".equals(modifEffectue)) {
 			List<Serie> listeSerie = daoMysql.AffichageAllSerie();
 			request.setAttribute("listeSerie", listeSerie);
 		}

@@ -1,3 +1,2 @@
 Fermer les connexions DB (SHOW PROCESSLIST)
-bouton annuler pour la modif serie
-
+episode 0
