@@ -34,6 +34,9 @@
 			<c:if test="${nomMenu == 'episode'}">
 				<%@include file="./WEB-INF/JSPCentral/Episodes.jspf"%>	
 			</c:if>
+			<c:if test="${nomMenu == 'AVoir'}">
+				<%@include file="./WEB-INF/JSPCentral/AVoir.jspf"%>	
+			</c:if>
 			<br>
 		</div>
 		<!-- https://www.javatpoint.com/jsp-include-action -->

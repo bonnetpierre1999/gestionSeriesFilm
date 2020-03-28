@@ -1,5 +1,6 @@
 package fr.prive.gestionSeriesFilm.dal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -40,6 +41,7 @@ public class daoMysql {
 	 * @throws daoException
 	 */
 	public static void ajouterSerie(Serie serie) throws daoException {
+		//TODO
 		// Association au manager obligatoire
 		EntityManager em = null;
 		// Accès possible
@@ -58,6 +60,7 @@ public class daoMysql {
 	 * @throws daoException
 	 */
 	public static void ajouterSaison(Saison saison) throws daoException {
+		//TODO
 		// Association au manager obligatoire
 		EntityManager em = null;
 		// Accès possible
@@ -76,6 +79,7 @@ public class daoMysql {
 	 * @throws daoException
 	 */
 	public static void ajouterEpisode(Episode episode) throws daoException {
+		//TODO
 		// Association au manager obligatoire
 		EntityManager em = null;
 		// Accès possible
@@ -94,6 +98,7 @@ public class daoMysql {
 	 * @throws daoException
 	 */
 	public static void ModifierSerie(Serie serie) throws daoException {
+		//TODO
 		// Association au manager obligatoire
 		EntityManager em = null;
 		// Accès possible
@@ -112,6 +117,7 @@ public class daoMysql {
 	 * @throws daoException
 	 */
 	public static void supprimerSerie(int idSerie) throws daoException {
+		//TODO
 		// Association au manager obligatoire
 		EntityManager em = null;
 		// Accès possible
@@ -131,6 +137,7 @@ public class daoMysql {
 	 * @return
 	 */
 	public static List<Serie> AffichageAllSerie() {
+		//TODO
 		EntityManager em = daoManager.getEntityManager();
 		try {
 			TypedQuery<Serie> query = em.createNamedQuery("findTousSerie", Serie.class);
@@ -150,6 +157,7 @@ public class daoMysql {
 	 * @throws daoException
 	 */
 	public static Serie AffichageSerieById(int idSerie) throws daoException {
+		//TODO
 		// Association au manager obligatoire
 		EntityManager em = daoManager.getEntityManager();
 		EntityTransaction et = em.getTransaction();
@@ -170,6 +178,7 @@ public class daoMysql {
 	}
 
 	public static List<Saison> AffichageAllSaisonsByIdserie(int id) {
+		//TODO
 		EntityManager em = daoManager.getEntityManager();
 		try {
 			TypedQuery<Saison> query = em.createNamedQuery("listeSaisonById", Saison.class);
@@ -183,6 +192,7 @@ public class daoMysql {
 	}
 	
 	public static List<Episode> AffichageAllEpisodesByIdsaison(int id) {
+		//TODO
 		EntityManager em = daoManager.getEntityManager();
 		try {
 			TypedQuery<Episode> query = em.createNamedQuery("listeEpisodeById", Episode.class);
@@ -196,6 +206,7 @@ public class daoMysql {
 	}
 
 	public static void supprimerSaison(int idSaison) throws daoException {
+		//TODO
 		// Association au manager obligatoire
 		EntityManager em = daoManager.getEntityManager();
 		EntityTransaction et = em.getTransaction();
@@ -221,6 +232,7 @@ public class daoMysql {
 	 * @throws daoException
 	 */
 	public static Saison AffichageSaisonById(int idSaison) throws daoException {
+		//TODO
 		// Association au manager obligatoire
 		EntityManager em = daoManager.getEntityManager();
 		EntityTransaction et = em.getTransaction();
@@ -241,6 +253,7 @@ public class daoMysql {
 	}
 
 	public static void supprimerEpisode(int idEpisode) throws daoException {
+		//TODO
 		// Association au manager obligatoire
 		EntityManager em = daoManager.getEntityManager();
 		EntityTransaction et = em.getTransaction();
@@ -266,6 +279,7 @@ public class daoMysql {
 	 * @throws daoException
 	 */
 	public static void modifierEpisode(Episode e) {
+		//TODO
 		// Association au manager obligatoire
 		EntityManager em = null;
 		// Accès possible
@@ -276,5 +290,170 @@ public class daoMysql {
 		} finally {
 			closeEntityManager(em);
 		}
+	}
+
+	public static List<Episode> AffichageAllEpisodesNonVu() {
+		//TODO
+		EntityManager em = daoManager.getEntityManager();
+		List<Serie> allSerie = null;
+		List<Saison> allSaison = null;
+		List<Episode> allEpisode = new ArrayList<Episode>();
+		try {
+			
+			allSerie = AffichageAllSerie();
+			
+			for (Serie serie : allSerie)
+			{
+				allSaison = AffichageAllSaisonsByIdserie(serie.getId());
+				for (Saison saison : allSaison)
+				{
+					TypedQuery<Episode> query = em.createNamedQuery("findTousEpisodeNonVusBySerie", Episode.class);
+					query.setParameter("var", saison.getId());
+					List<Episode> episodes  = query.getResultList();
+					for (Episode episode : episodes)
+					{
+						allEpisode.add(episode);
+					}
+				}
+			}
+			return allEpisode;
+		} finally {
+			if (em != null) {
+				closeEntityManager(em);
+		     }
+		}
+		
+	}
+	
+	public static List<Episode> AffichageNextEpisode() {
+		//TODO
+		EntityManager em = daoManager.getEntityManager();
+		List<Serie> allSerie = null;
+		int nbSerie;
+		int numSerie;
+		boolean vuSerie;
+		List<Saison> allSaison = null;
+		List<Episode> allEpisode = new ArrayList<Episode>();
+		try {
+			
+			allSerie = AffichageAllSerie();
+			nbSerie = allSerie.size();
+			numSerie = 0;
+			vuSerie = false;
+			
+			for (Serie serie : allSerie)
+			{
+				allSaison = AffichageAllSaisonsByIdserie(serie.getId());
+				for (Saison saison : allSaison)
+				{
+					TypedQuery<Episode> query = em.createNamedQuery("findTousEpisodeNonVusBySerie", Episode.class);
+					query.setParameter("var", saison.getId());
+					List<Episode> episodes  = query.getResultList();
+
+					if(episodes.size() >= 1)
+					{
+						allEpisode.add(episodes.get(0));
+						break;
+					}
+				}
+			}
+			return allEpisode;
+		} finally {
+			if (em != null) {
+				closeEntityManager(em);
+		     }
+		}
+		
+	}
+
+	public static Episode AffichageEpisodeById(int idEpisode) throws daoException {
+		//TODO
+		// Association au manager obligatoire
+		EntityManager em = daoManager.getEntityManager();
+		EntityTransaction et = em.getTransaction();
+		et.begin();
+		Episode episode = null;
+		// Accès possible
+		try {
+			episode = em.find(Episode.class, idEpisode);
+			return episode;
+		} catch (Exception e) {
+			throw new daoException("Erreur lors de l'accès � l'episode n�" + idEpisode + " : " + e.getMessage());
+		} finally {
+			if (em != null) {
+				closeEntityManager(em);
+		    }
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public static List<Serie> AffichageSerieAvecEpisodeNonVu() {
+		//TODO
+		EntityManager em = daoManager.getEntityManager();
+		List<Serie> allSerie = null;
+		List<Saison> allSaison = null;
+		List<Serie> allSerieNonVu = new ArrayList<Serie>();
+		try {
+			
+			allSerie = AffichageAllSerie();
+			
+			for (Serie serie : allSerie)
+			{
+				allSaison = AffichageAllSaisonsByIdserie(serie.getId());
+				for (Saison saison : allSaison)
+				{
+					TypedQuery<Episode> query = em.createNamedQuery("findTousEpisodeNonVusBySerie", Episode.class);
+					query.setParameter("var", saison.getId());
+					List<Episode> episodes  = query.getResultList();
+
+					if(episodes.size() >= 1)
+					{
+						allSerieNonVu.add(serie);
+						break;
+					}
+				}
+			}
+			return allSerieNonVu;
+		} finally {
+			if (em != null) {
+				closeEntityManager(em);
+		     }
+		}
+		
+	}
+	
+	public static List<Episode> AffichageAllEpisodesNonVuByIdSerie(int idSerie) {
+		//TODO
+		EntityManager em = daoManager.getEntityManager();
+		List<Serie> allSerie = null;
+		List<Saison> allSaison = null;
+		List<Episode> allEpisode = new ArrayList<Episode>();
+		try {
+			
+				allSaison = AffichageAllSaisonsByIdserie(idSerie);
+				for (Saison saison : allSaison)
+				{
+					TypedQuery<Episode> query = em.createNamedQuery("findTousEpisodeNonVusBySerie", Episode.class);
+					query.setParameter("var", saison.getId());
+					List<Episode> episodes  = query.getResultList();
+					for (Episode episode : episodes)
+					{
+						allEpisode.add(episode);
+					}
+				} 
+			
+			return allEpisode;
+		} finally {
+			if (em != null) {
+				closeEntityManager(em);
+		     }
+		}
+		
 	}
 }

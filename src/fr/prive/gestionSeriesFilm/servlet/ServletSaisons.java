@@ -48,7 +48,7 @@ public class ServletSaisons extends HttpServlet {
 			
 			// ajout d'une saison et des episodes de la saison
 			if (request.getParameter("btnAjouter") != null) {
-				if (request.getParameter("nbEpisodes") != null && isNumeric(request.getParameter("nbEpisodes"))) {
+				if (request.getParameter("nbEpisodes") != null) {
 					try {
 						int nbEpisode = Integer.parseInt(request.getParameter("nbEpisodes"));
 						int numSaison = Integer.parseInt(request.getParameter("idSaison"));
@@ -128,19 +128,6 @@ public class ServletSaisons extends HttpServlet {
 		{
 			response.sendRedirect(request.getContextPath() + "/Series");
 		}
-	}
-	
-	public static boolean isNumeric(String strNum) {
-		if (strNum == null) {
-			return false;
-		}
-		try {
-			@SuppressWarnings("unused")
-			double d = Double.parseDouble(strNum);
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
-		return true;
 	}
 	
 	public static int nbSaison(int idSerie)

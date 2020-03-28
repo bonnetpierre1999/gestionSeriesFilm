@@ -66,5 +66,12 @@ public class Serie {
 		nb = saisons.size();
 		return nb;
 	}
-
+	
+	public int getNbEpNonVus()
+	{
+		int nb=0;
+		List<Episode> episodes = daoMysql.AffichageAllEpisodesNonVuByIdSerie(this.getId());
+		nb = episodes.size();
+		return nb;
+	}
 }

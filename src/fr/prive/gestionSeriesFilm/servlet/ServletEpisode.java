@@ -60,19 +60,18 @@ public class ServletEpisode extends HttpServlet {
 				}
 			}
 			
-			// ajout d'une saison et des episodes de la saison
+			// modification si un ep est vu ou pas
 			if (request.getParameter("btnVU") != null) {
 				try {	
-					int numEpisode = Integer.parseInt(request.getParameter("numEpisode"));
 					int idEpisode = Integer.parseInt(request.getParameter("idEpisode"));
-					Saison saison = daoMysql.AffichageSaisonById(id);
+					Episode episode = daoMysql.AffichageEpisodeById(idEpisode);
 					int vue = Integer.parseInt(request.getParameter("vue"));
 					boolean vu = false;
 					if (vue == 1)
 					{
 						vu=true;
 					}
-					Episode e = new Episode(idEpisode, saison, numEpisode, vu);
+					Episode e = new Episode(episode.getId(), episode.getSaison(), episode.getNumEpisode(), vu);
 					daoMysql.modifierEpisode(e);
 				} catch (NumberFormatException | daoException e) {
 					request.setAttribute("erreur", "oui");
@@ -122,19 +121,6 @@ public class ServletEpisode extends HttpServlet {
 		{
 			response.sendRedirect(request.getContextPath() + "/Series");
 		}
-	}
-	
-	public static boolean isNumeric(String strNum) {
-		if (strNum == null) {
-			return false;
-		}
-		try {
-			@SuppressWarnings("unused")
-			double d = Double.parseDouble(strNum);
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
-		return true;
 	}
 	
 	public static int nbEpisode(int idSaison)

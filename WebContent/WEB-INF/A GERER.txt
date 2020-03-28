@@ -1,1 +1,7 @@
 Fermer les connexions DB (SHOW PROCESSLIST)
+
+check si serie est FINIE ou pas (episode final diffusé)
+check si serie est vu complet ou pas
+savoir comment est diffusé la série
+
+bouton retour en haut : liste des serie,liste des saisons, liste des episode, A voir (serie), a voir (next), a voir (tous)

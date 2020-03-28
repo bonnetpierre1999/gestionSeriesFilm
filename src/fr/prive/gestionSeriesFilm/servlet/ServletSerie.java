@@ -49,7 +49,7 @@ public class ServletSerie extends HttpServlet {
 		
 		// ajout d'une serie
 		if (request.getParameter("btnAjouter") != null) {
-			if (request.getParameter("nomSerie") != null && isNumeric(request.getParameter("annee"))) {
+			if (request.getParameter("nomSerie") != null && request.getParameter("annee") != null) {
 				try {
 					int annee = Integer.parseInt(request.getParameter("annee"));
 					Serie s = new Serie(request.getParameter("nomSerie"), annee);
@@ -74,7 +74,7 @@ public class ServletSerie extends HttpServlet {
 		// modification d'une serie (apres modif)
 		if (request.getParameter("btnModifier2") != null) {
 			
-			if (request.getParameter("nomSerie") != null && isNumeric(request.getParameter("annee"))) {
+			if (request.getParameter("nomSerie") != null && request.getParameter("annee") != null) {
 				try {
 					int annee = Integer.parseInt(request.getParameter("annee"));
 					int id = Integer.parseInt(request.getParameter("idSerie"));
@@ -129,16 +129,4 @@ public class ServletSerie extends HttpServlet {
 		rd.forward(request, response);
 	}
 	
-	public static boolean isNumeric(String strNum) {
-		if (strNum == null) {
-			return false;
-		}
-		try {
-			@SuppressWarnings("unused")
-			double d = Double.parseDouble(strNum);
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
-		return true;
-	}
 }

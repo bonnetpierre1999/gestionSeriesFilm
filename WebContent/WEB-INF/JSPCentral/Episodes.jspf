@@ -14,7 +14,6 @@
 			<div class="container-fluid">
 				<div>
 					<form method="POST" name="ajouterEpisodeForm" action="<%=request.getContextPath()%>/Episodes">
-						Nombre d'épisodes :  
 						<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
 						<input type="hidden" value="${idSaison}" name="idSaison" id="idSaison" />
 						<input type="hidden" value="${nbEpisode + 1}" name="numEpisode" id="numEpisode" />

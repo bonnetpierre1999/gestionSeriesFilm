@@ -1,0 +1,141 @@
+
+	<div class="container-fluid">
+		<TABLE>
+			<tr>
+				<td>
+					<form method="POST" name="ajouterEpisodeForm" action="<%=request.getContextPath()%>/AVoir">
+						<input type="hidden" value="serie" name="action" id="action" />
+						<input type="submit" value="Par Série" name="btnSerie" title="Par Série" style="width:150px">
+					</form>
+				</td>
+				<td>
+					<form method="POST" name="ajouterEpisodeForm" action="<%=request.getContextPath()%>/AVoir">
+						<input type="hidden" value="next" name="action" id="action" />
+						<input type="submit" value="Prochain par série" name="btnNext" title="Prochain par série" style="width:150px">
+					</form>
+				</td>
+				<td>
+					<form method="POST" name="ajouterEpisodeForm" action="<%=request.getContextPath()%>/AVoir">
+						<input type="hidden" value="all" name="action" id="action" />
+						<input type="submit" value="Épisodes non vus" name="btnAll" title="Épisodes non vus" style="width:150px">
+					</form>
+				</td>
+			</tr>
+		</TABLE>
+	</div>
+	
+	<br>
+	
+	<c:if test="${action == null || action == 'next'}">
+		<div style="max-width:1200px">
+			<TABLE class="table table-striped">
+				<c:forEach var="episode" items="${listeEpisode}">
+					<tr>
+						<td>${episode.getSaison().getSerie().getNom()}  :  Saison ${episode.getSaison().getNumSaison()}  :  Episode ${episode.numEpisode}</td>
+						<td width="40px">
+							<form action="<%=request.getContextPath()%>/AVoir" method="post">
+								<input type="hidden" value="${action}" name="action" id="action" />
+								<input type="hidden" value="${episode.id}" name="idEpisode" id="idEpisode" />
+								<c:if test="${episode.vu == true}">
+									<input type="hidden" value="0" name="vue" id="vue" />
+									<input name="btnVU" type="submit" value="Non vu" style="width:75px" />
+								</c:if>
+								<c:if test="${episode.vu == false}">
+									<input type="hidden" value="1" name="vue" id="vue" />
+									<input name="btnVU" type="submit" value="Vu" style="width:75px" />
+								</c:if>
+							</form>
+						</td>
+					</tr>
+				</c:forEach>
+			</TABLE>
+		</div>
+	</c:if>
+	
+	<c:if test="${action == 'all'}">
+		<div style="max-width:1200px">
+			<TABLE class="table table-striped">
+				<c:forEach var="episode" items="${listeEpisode}">
+					<tr>
+						<td>${episode.getSaison().getSerie().getNom()}  :  Saison ${episode.getSaison().getNumSaison()}  :  Episode ${episode.numEpisode}</td>
+						<td width="40px">
+							<form action="<%=request.getContextPath()%>/AVoir" method="post">
+								<input type="hidden" value="${action}" name="action" id="action" />
+								<input type="hidden" value="${episode.id}" name="idEpisode" id="idEpisode" />
+								<c:if test="${episode.vu == true}">
+									<input type="hidden" value="0" name="vue" id="vue" />
+									<input name="btnVU" type="submit" value="Non vu" style="width:75px" />
+								</c:if>
+								<c:if test="${episode.vu == false}">
+									<input type="hidden" value="1" name="vue" id="vue" />
+									<input name="btnVU" type="submit" value="Vu" style="width:75px" />
+								</c:if>
+							</form>
+						</td>
+					</tr>
+				</c:forEach>
+			</TABLE>
+		</div>
+	</c:if>
+	
+	<c:if test="${action == 'serie'}">
+		<div class="container-fluid" align="center">
+		
+			<div style="max-width:1200px">
+				<TABLE class="table table-striped">
+					<c:forEach var="serie" items="${listeSerie}">
+						<tr>
+							<td>${serie.nom} (${serie.getNbEpNonVus()} épisode(s) non vu(s))</td>
+							<td width="40px">
+								<form action="<%=request.getContextPath()%>/AVoir" method="post">
+									<input type="hidden" value="parSerie" name="action" id="action" />
+									<input type="hidden" value="${serie.id}" name="idSerie"	id="idSerie" />
+									<input name="btnSerie2" type="submit" value="Liste des épisodes non vus" />
+								</form>
+							</td>
+						</tr>
+					</c:forEach>
+				</TABLE>
+			</div>
+		</div>
+	</c:if>
+	
+	<c:if test="${action == 'parSerie'}">
+		<div style="max-width:1200px">
+			<TABLE class="table table-striped">
+				<c:forEach var="episode" items="${listeEpisode}">
+					<tr>
+						<td>${episode.getSaison().getSerie().getNom()}  :  Saison ${episode.getSaison().getNumSaison()}  :  Episode ${episode.numEpisode}</td>
+						<td width="40px">
+							<form action="<%=request.getContextPath()%>/AVoir" method="post">
+								<input type="hidden" value="parSerie" name="action" id="action" />
+								<input type="hidden" value="${episode.id}" name="idEpisode" id="idEpisode" />
+								<input type="hidden" value="${episode.getSaison().getSerie().getId()}" name="idSerie"	id="idSerie" />
+								<c:if test="${episode.vu == true}">
+									<input type="hidden" value="0" name="vue" id="vue" />
+									<input name="btnVU" type="submit" value="Non vu" style="width:75px" />
+								</c:if>
+								<c:if test="${episode.vu == false}">
+									<input type="hidden" value="1" name="vue" id="vue" />
+									<input name="btnVU" type="submit" value="Vu" style="width:75px" />
+								</c:if>
+							</form>
+						</td>
+					</tr>
+				</c:forEach>
+			</TABLE>
+			<div class="container-fluid">
+				<div>
+					<form method="POST" name="retourSeries"	action="<%=request.getContextPath()%>/AVoir">
+						<input type="hidden" value="serie" name="action" id="action" />
+						<input type="submit" value="Retourner au choix par Série" name="btnSerie" title="Retourner au choix par Série" style="width:220px">
+					</form>
+				</div>
+			</div>
+		</div>
+	</c:if>
+	
+	
+	
+	
+	
