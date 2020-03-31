@@ -10,7 +10,6 @@
 					<form method="POST" name="ajouterSerieForm"	action="<%=request.getContextPath()%>/Series">
 						Ajouter une série : 
 						<input type="text" name="nomSerie" id="nomSerie" placeholder="Nom de la série?"> 
-						<input type="number" name="annee" id="annee" placeholder="Année de création ?">
 						<input type="submit" value="Ajouter" name="btnAjouter" title="Ajouter cette série ?">
 					</form>
 				</div>
@@ -22,7 +21,7 @@
 					<c:forEach var="serie" items="${listeSerie}">
 						<tr>
 							<td>${serie.nom} (${serie.getNbSaisons()} saison(s))</td>
-							<td width="40px">${serie.annee}</td>
+							<td width="40px">${serie.moyenDiffusion}</td>
 							<td width="40px">
 								<form action="<%=request.getContextPath()%>/Saisons" method="post">
 									<input type="hidden" value="${serie.id}" name="idSerie"
@@ -63,7 +62,7 @@
 						<input type="hidden" value="${serie.id}" name="idSerie"	id="idSerie" />
 						<input type="hidden" value="modifier2" name="action"	id="action" />
 						<input type="text" name="nomSerie" id="nomSerie" value="${serie.nom}"><br> <br> 
-						<input type="number" name="annee" id="annee" value="${serie.annee}"><br> <br>
+						<input type="text" name="diffusion" id="diffusion" value="${serie.moyenDiffusion}"  placeholder="Moyen de diffusion?"><br> <br> 
 						<input type="submit" value="Modifier" name="btnModifier2" title="Modifier cette série?">
 						<input type="submit" value="Annuler" name="btnAnnuler" title="Annuler">
 					</form>

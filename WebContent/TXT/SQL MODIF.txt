@@ -1,0 +1,8 @@
+ALTER TABLE serie
+ADD moyenDiffusion varchar(40)
+
+ALTER TABLE serie ADD serieFini bit(1)
+
+UPDATE `serie` SET `moyenDiffusion`="",`serieFini`= 0 WHERE `id`>=1
+
+ALTER TABLE `serie` DROP `annee`;

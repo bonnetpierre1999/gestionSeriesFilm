@@ -40,7 +40,7 @@
 		<url-pattern>/Episodes</url-pattern>
 	</servlet-mapping>
 	
-	<!-- servlet des episodes -->
+	<!-- servlet des episodes à voir -->
 	<servlet>
 		<servlet-name>ServletAVoir</servlet-name>
 		<servlet-class>fr.prive.gestionSeriesFilm.servlet.ServletAVoir</servlet-class>

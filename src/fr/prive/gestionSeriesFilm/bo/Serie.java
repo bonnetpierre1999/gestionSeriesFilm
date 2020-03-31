@@ -35,28 +35,32 @@ public class Serie {
 	@Column(length = 100)
 	private String nom;
 	
-	private int annee;
+	@Column(length = 40)
+	private String moyenDiffusion;
+	
+	private boolean serieFini;
 	
 	@JsonBackReference
 	@OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
 	private List<Saison> saison = new ArrayList<>();
 
-	public Serie(String nom, int annee) {
+	public Serie(String nom) {
 		super();
 		this.nom = nom;
-		this.annee = annee;
 	}
-
-	public Serie(int id, String nom, int annee) {
+	
+	public Serie(int id, String nom, String moyenDiffusion, boolean serieFini) {
 		super();
 		this.id = id;
 		this.nom = nom;
-		this.annee = annee;
+		this.moyenDiffusion = moyenDiffusion;
+		this.serieFini = serieFini;
 	}
 
 	@Override
 	public String toString() {
-		return "Serie [id=" + id + ", nom=" + nom + ", annee=" + annee + "]";
+		return "Serie [id=" + id + ", nom=" + nom + ", moyenDiffusion=" + moyenDiffusion + ", serieFini=" + serieFini
+				+ "]";
 	}
 	
 	public int getNbSaisons()
@@ -74,4 +78,6 @@ public class Serie {
 		nb = episodes.size();
 		return nb;
 	}
+
+	
 }

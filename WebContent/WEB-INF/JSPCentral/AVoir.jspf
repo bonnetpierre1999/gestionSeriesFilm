@@ -34,7 +34,7 @@
 						<td>${episode.getSaison().getSerie().getNom()}  :  Saison ${episode.getSaison().getNumSaison()}  :  Episode ${episode.numEpisode}</td>
 						<td width="40px">
 							<form action="<%=request.getContextPath()%>/AVoir" method="post">
-								<input type="hidden" value="${action}" name="action" id="action" />
+								<input type="hidden" value="next" name="action" id="action" />
 								<input type="hidden" value="${episode.id}" name="idEpisode" id="idEpisode" />
 								<c:if test="${episode.vu == true}">
 									<input type="hidden" value="0" name="vue" id="vue" />
@@ -60,7 +60,7 @@
 						<td>${episode.getSaison().getSerie().getNom()}  :  Saison ${episode.getSaison().getNumSaison()}  :  Episode ${episode.numEpisode}</td>
 						<td width="40px">
 							<form action="<%=request.getContextPath()%>/AVoir" method="post">
-								<input type="hidden" value="${action}" name="action" id="action" />
+								<input type="hidden" value="all" name="action" id="action" />
 								<input type="hidden" value="${episode.id}" name="idEpisode" id="idEpisode" />
 								<c:if test="${episode.vu == true}">
 									<input type="hidden" value="0" name="vue" id="vue" />

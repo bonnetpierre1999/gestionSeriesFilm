@@ -1,0 +1,34 @@
+Fin Serie (Series) : 
+ - Création bo / dal
+ - Création Servlet Serie (ajout / modification / suppression / liste des saisons)
+ - Création index
+ - Création header
+ - Création JSPCentral Serie
+ 
+ 
+Ajout des Saisons : 
+ - Création Servlet Saison (ajout / suppression / liste des épisodes)
+ - Création JSPCentral Saisons
+ - Modification index : ajout de la page Saisons
+ 
+
+Ajout boutons retour : 
+ - Ajout des boutons retour (annulation modification series
+ 							 Retour à la liste des séries (saisons))
+
+Ajout Episode : 
+ - Création Servlet Saison (ajout / suppression / épisode vu ou pas / Retour à la liste des Saisons)
+ - Création JSPCentral Episodes
+ - Modification index : ajout de la page Episodes
+ 
+
+Ajout fonction "Episode à voir" : 
+ - Création Servlet  AVoir (par serie / next / tous)
+ - Création JSPCentral AVoir
+ - Modification index : ajout de la page AVoir
+ 
+
+ Ajout modif base Serie (diff & fini?)
+ - Modification base de donnée (supp annee / ajout du moyen de diffusion et si la serie est finie ou pas) 
+ - Modification Servlet Serie pour prendre en compte la modif de la base
+ - Modification JSPCentral Serie pour prendre en compte les modif de la base et pouvoir modifier les series (diff & fini?)
