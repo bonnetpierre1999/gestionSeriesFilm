@@ -32,3 +32,7 @@ Ajout fonction "Episode à voir" :
  - Modification base de donnée (supp annee / ajout du moyen de diffusion et si la serie est finie ou pas) 
  - Modification Servlet Serie pour prendre en compte la modif de la base
  - Modification JSPCentral Serie pour prendre en compte les modif de la base et pouvoir modifier les series (diff & fini?)
+ 
+ 
+ Ajout modif base Serie (diff & fini?) n°2
+ - Modication affichage ajout et suppression (saison et episode) : si serie finie alors liste saison et liste episode non modifiable

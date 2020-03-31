@@ -11,17 +11,19 @@
 			</c:if>
 			<br>
 			
-			<div class="container-fluid">
-				<div>
-					<form method="POST" name="ajouterEpisodeForm" action="<%=request.getContextPath()%>/Episodes">
-						<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
-						<input type="hidden" value="${idSaison}" name="idSaison" id="idSaison" />
-						<input type="hidden" value="${nbEpisode + 1}" name="numEpisode" id="numEpisode" />
-						<input type="submit" value="Ajouter un épisode ${nbEpisode + 1}" name="btnAjouter" title="Ajouter un épisode ${nbEpisode + 1}">
-					</form>
+			<c:if test="${serieChoisie.serieFini  == false}">
+				<div class="container-fluid">
+					<div>
+						<form method="POST" name="ajouterEpisodeForm" action="<%=request.getContextPath()%>/Episodes">
+							<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+							<input type="hidden" value="${idSaison}" name="idSaison" id="idSaison" />
+							<input type="hidden" value="${nbEpisode + 1}" name="numEpisode" id="numEpisode" />
+							<input type="submit" value="Ajouter un épisode ${nbEpisode + 1}" name="btnAjouter" title="Ajouter un épisode ${nbEpisode + 1}">
+						</form>
+					</div>
 				</div>
-			</div>
-			<br>
+				<br>
+			</c:if>
 		
 			<div style="max-width:1200px">
 				<TABLE class="table table-striped">
@@ -53,7 +55,7 @@
 						</td>
 							
 							
-						<c:if test="${episode.numEpisode == nbEpisode}">
+						<c:if test="${episode.numEpisode == nbEpisode && serieChoisie.serieFini  == false}">
 							<td width="40px">
 								<form action="<%=request.getContextPath()%>/Episodes" method="post">
 									<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
@@ -64,7 +66,7 @@
 								</form>
 							</td>
 						</c:if>
-						<c:if test="${episode.numEpisode != nbEpisode}">
+						<c:if test="${episode.numEpisode != nbEpisode && serieChoisie.serieFini  == false}">
 							<td width="40px"></td>
 						</c:if>
 						</tr>

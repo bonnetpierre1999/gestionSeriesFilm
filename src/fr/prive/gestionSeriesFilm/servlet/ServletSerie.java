@@ -75,8 +75,12 @@ public class ServletSerie extends HttpServlet {
 			
 			if (request.getParameter("nomSerie") != null) {
 				try {
+					boolean serieFini = false;
+					if (request.getParameter("serieFini") != null) {
+						serieFini = true;
+					}
 					int id = Integer.parseInt(request.getParameter("idSerie"));
-					Serie s = new Serie(id,request.getParameter("nomSerie"), request.getParameter("diffusion"), false);
+					Serie s = new Serie(id,request.getParameter("nomSerie"), request.getParameter("diffusion"), serieFini);
 					daoMysql.ModifierSerie(s);
 					//on signale que l'update est passée en DB
 					modifEffectue = "ok";

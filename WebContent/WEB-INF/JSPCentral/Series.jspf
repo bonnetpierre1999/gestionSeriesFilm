@@ -5,6 +5,7 @@
 			<h3>Liste des Séries</h3>
 			<br>
 			
+			
 			<div class="container-fluid">
 				<div>
 					<form method="POST" name="ajouterSerieForm"	action="<%=request.getContextPath()%>/Series">
@@ -22,6 +23,16 @@
 						<tr>
 							<td>${serie.nom} (${serie.getNbSaisons()} saison(s))</td>
 							<td width="40px">${serie.moyenDiffusion}</td>
+							
+							<c:if test="${serie.serieFini  == true}">
+								<td width="40px">
+									FINIE
+								</td>
+							</c:if>
+							<c:if test="${serie.serieFini  == false}">
+								<td width="40px"></td>
+							</c:if>
+							
 							<td width="40px">
 								<form action="<%=request.getContextPath()%>/Saisons" method="post">
 									<input type="hidden" value="${serie.id}" name="idSerie"
@@ -63,6 +74,13 @@
 						<input type="hidden" value="modifier2" name="action"	id="action" />
 						<input type="text" name="nomSerie" id="nomSerie" value="${serie.nom}"><br> <br> 
 						<input type="text" name="diffusion" id="diffusion" value="${serie.moyenDiffusion}"  placeholder="Moyen de diffusion?"><br> <br> 
+						Série finie ? 
+						<c:if test="${serie.serieFini  == true}">
+							<input type="checkbox" name="serieFini" id="serieFini" checked="checked"><br> <br>
+						</c:if>
+						<c:if test="${serie.serieFini  == false}">
+							<input type="checkbox" name="serieFini" id="serieFini"><br> <br>
+						</c:if>
 						<input type="submit" value="Modifier" name="btnModifier2" title="Modifier cette série?">
 						<input type="submit" value="Annuler" name="btnAnnuler" title="Annuler">
 					</form>
