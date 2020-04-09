@@ -36,3 +36,10 @@ Ajout fonction "Episode à voir" :
  
  Ajout modif base Serie (diff & fini?) n°2
  - Modication affichage ajout et suppression (saison et episode) : si serie finie alors liste saison et liste episode non modifiable
+ 
+ 
+ Ajout Facilitation acces ep non vus n°1
+  - Ajout pastille verte ou rouge pour savoir si série vu au complet (Série)
+  - Ajout moyen de diffusion dans AVoir (par série / next)
+  
+ 

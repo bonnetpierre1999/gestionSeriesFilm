@@ -21,6 +21,12 @@
 				<TABLE class="table table-striped">
 					<c:forEach var="serie" items="${listeSerie}">
 						<tr>
+							<c:if test="${serie.getNbEpNonVus() == 0}">
+								<td width="40px"><div id="cerclevert"></div></td>
+							</c:if>
+							<c:if test="${serie.getNbEpNonVus() != 0}">
+								<td width="40px"><div id="cerclerouge"></div></td>
+							</c:if>
 							<td>${serie.nom} (${serie.getNbSaisons()} saison(s))</td>
 							<td width="40px">${serie.moyenDiffusion}</td>
 							

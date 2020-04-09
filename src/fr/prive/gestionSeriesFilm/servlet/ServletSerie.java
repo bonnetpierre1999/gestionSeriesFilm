@@ -51,7 +51,8 @@ public class ServletSerie extends HttpServlet {
 		if (request.getParameter("btnAjouter") != null) {
 			if (!"".equals(request.getParameter("nomSerie"))) {
 				try {
-					Serie s = new Serie(request.getParameter("nomSerie"));
+					//Serie s = new Serie(request.getParameter("nomSerie"));
+					Serie s = new Serie(request.getParameter("nomSerie"), "Disney");
 					daoMysql.ajouterSerie(s);
 				} catch (NumberFormatException | daoException e) {
 					request.setAttribute("erreur", "oui");

@@ -1,5 +1,7 @@
 Fermer les connexions DB (SHOW PROCESSLIST)
 
-check si serie est vu complet ou pas
-
 bouton retour en haut : liste des serie,liste des saisons, liste des episode, A voir (serie), a voir (next), a voir (tous)
+
+chercher par mot ou par diffusion
+
+ajax

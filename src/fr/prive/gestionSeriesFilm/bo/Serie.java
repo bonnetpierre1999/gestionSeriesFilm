@@ -79,5 +79,11 @@ public class Serie {
 		return nb;
 	}
 
+	public Serie(String nom, String moyenDiffusion) {
+		super();
+		this.nom = nom;
+		this.moyenDiffusion = moyenDiffusion;
+	}
+
 	
 }
