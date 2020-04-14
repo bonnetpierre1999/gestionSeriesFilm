@@ -12,6 +12,8 @@
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
 <link media="all" rel="stylesheet" href="<%=request.getContextPath()%>/CSS/Styles.css" type="text/css"/>
+<link media="all" rel="stylesheet" href="<%=request.getContextPath()%>/CSS/BoutonHaut.css" type="text/css"/>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 </head>
 <body style="height:100%; position: relative;">
 
@@ -41,5 +43,31 @@
 		</div>
 		<!-- https://www.javatpoint.com/jsp-include-action -->
 	</div>
+	
+	<!-- Bouton permattant le retour en haut de page -->
+	 <script>            
+		jQuery(document).ready(function() {
+		  var duration = 500;
+		  jQuery(window).scroll(function() {
+		    if (jQuery(this).scrollTop() > 100) {
+		      // Si un défillement de 100 pixels ou plus.
+		      // Ajoute le bouton
+		      jQuery('.cRetour').fadeIn(duration);
+		    } else {
+		      // Sinon enlève le bouton
+		      jQuery('.cRetour').fadeOut(duration);
+		    }
+		  });
+						
+		  jQuery('.cRetour').click(function(event) {
+		    // Un clic provoque le retour en haut animé.
+		    event.preventDefault();
+		    jQuery('html, body').animate({scrollTop: 0}, duration);
+		    return false;
+		  })
+		});
+	</script>
+
+<div class="cRetour"></div>
 </body>
 </html>

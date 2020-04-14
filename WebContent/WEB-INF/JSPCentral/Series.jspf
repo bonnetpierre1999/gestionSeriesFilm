@@ -27,8 +27,15 @@
 							<c:if test="${serie.getNbEpNonVus() != 0}">
 								<td width="40px"><div id="cerclerouge"></div></td>
 							</c:if>
+							
 							<td>${serie.nom} (${serie.getNbSaisons()} saison(s))</td>
-							<td width="40px">${serie.moyenDiffusion}</td>
+							
+							<c:if test="${serie.moyenDiffusion  != ''}">
+								<td width="40px"><img src="images/${serie.moyenDiffusion}.png" maw-width=50px></td>
+							</c:if>
+							<c:if test="${serie.moyenDiffusion  == ''}">
+								<td width="40px"></td>
+							</c:if>
 							
 							<c:if test="${serie.serieFini  == true}">
 								<td width="40px">

@@ -32,7 +32,14 @@
 				<c:forEach var="episode" items="${listeEpisode}">
 					<tr>
 						<td>${episode.getSaison().getSerie().getNom()}  :  Saison ${episode.getSaison().getNumSaison()}  :  Episode ${episode.numEpisode}</td>
-						<td width="40px">${episode.getSaison().getSerie().moyenDiffusion}</td>
+						
+						<c:if test="${episode.getSaison().getSerie().moyenDiffusion  != ''}">
+							<td width="40px"><img src="images/${episode.getSaison().getSerie().getMoyenDiffusion()}.png" maw-width=50px></td>
+						</c:if>
+						<c:if test="${episode.getSaison().getSerie().getMoyenDiffusion()  == ''}">
+							<td width="40px"></td>
+						</c:if>
+						
 						<td width="40px">
 							<form action="<%=request.getContextPath()%>/AVoir" method="post">
 								<input type="hidden" value="next" name="action" id="action" />
@@ -87,7 +94,23 @@
 					<c:forEach var="serie" items="${listeSerie}">
 						<tr>
 							<td>${serie.nom} (${serie.getNbEpNonVus()} épisode(s) non vu(s))</td>
-							<td width="40px">${serie.moyenDiffusion}</td>
+							
+							<c:if test="${serie.moyenDiffusion  != ''}">
+								<td width="40px"><img src="images/${serie.moyenDiffusion}.png" maw-width=50px></td>
+							</c:if>
+							<c:if test="${serie.moyenDiffusion  == ''}">
+								<td width="40px"></td>
+							</c:if>
+							
+							<c:if test="${serie.serieFini  == true}">
+								<td width="40px">
+									FINIE
+								</td>
+							</c:if>
+							<c:if test="${serie.serieFini  == false}">
+								<td width="40px"></td>
+							</c:if>
+							
 							<td width="40px">
 								<form action="<%=request.getContextPath()%>/AVoir" method="post">
 									<input type="hidden" value="parSerie" name="action" id="action" />
