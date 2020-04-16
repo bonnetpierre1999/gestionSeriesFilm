@@ -71,6 +71,8 @@ public class ServletAVoir extends HttpServlet {
 			try {	
 				List<Episode> listeEpisode = daoMysql.AffichageAllEpisodesNonVu();
 				request.setAttribute("listeEpisode", listeEpisode);
+				Long nbEpisode = daoMysql.AfficherNbEpNonVus();
+				request.setAttribute("nbEpisode", nbEpisode);
 			} catch (NumberFormatException e) {
 				request.setAttribute("erreur", "oui");
 			}

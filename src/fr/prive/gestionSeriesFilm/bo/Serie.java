@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -49,6 +48,12 @@ public class Serie {
 		this.nom = nom;
 	}
 	
+	public Serie(String nom, String moyenDiffusion) {
+		super();
+		this.nom = nom;
+		this.moyenDiffusion = moyenDiffusion;
+	}
+	
 	public Serie(int id, String nom, String moyenDiffusion, boolean serieFini) {
 		super();
 		this.id = id;
@@ -63,27 +68,17 @@ public class Serie {
 				+ "]";
 	}
 	
-	public int getNbSaisons()
+	public long getNbSaisons()
 	{
-		int nb=0;
-		List<Saison> saisons = daoMysql.AffichageAllSaisonsByIdserie(this.getId());
-		nb = saisons.size();
-		return nb;
+		return daoMysql.AfficherNbSaison(this.getId());
 	}
 	
-	public int getNbEpNonVus()
+	public long getNbEpNonVus()
 	{
-		int nb=0;
-		List<Episode> episodes = daoMysql.AffichageAllEpisodesNonVuByIdSerie(this.getId());
-		nb = episodes.size();
-		return nb;
+		//long nb=0;
+		//List<Episode> episodes = daoMysql.AffichageAllEpisodesNonVuByIdSerie(this.getId());
+		//nb = episodes.size();
+		return daoMysql.AfficherNbEpNonVusBySerie(this.getId());
 	}
-
-	public Serie(String nom, String moyenDiffusion) {
-		super();
-		this.nom = nom;
-		this.moyenDiffusion = moyenDiffusion;
-	}
-
 	
 }

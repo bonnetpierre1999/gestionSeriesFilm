@@ -46,4 +46,10 @@ Ajout Facilitation acces ep non vus n°2
   - Ajout des images des logos des diff à la place du texte (Serie / AVoir)
   - Ajout si la série est finie ou pas (AVoir - Par série)
   - Ajout bouton pou retourner en haut de la page
+  
+ Ajout Facilitation acces ep non vus n°3
+ - Ajout pages Erreur 404 & 500
+ - Mise en ordre des requetes (daoMysql)
+ - Requete unique (aggration) pour compter le nombre d'episode/saison
+ - Ajout du nombre total d'épisodes non vus (AVoir - Tous)
  

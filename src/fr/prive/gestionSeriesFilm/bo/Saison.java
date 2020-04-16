@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +25,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @NamedQueries({ 
-	@NamedQuery(name = "listeSaisonById", query = "FROM Saison s where serie_id = :var order by numSaison")
+	@NamedQuery(name = "listeSaisonById", query = "FROM Saison s where serie_id = :var order by numSaison"),
+	@NamedQuery(name = "findNbSaisonBySerie", query = "SELECT count(*) FROM Saison s where serie_id = :var ")
 })
 public class Saison {
 	
@@ -56,12 +56,9 @@ public class Saison {
 		return "Saison [id=" + id + ", serie=" + serie + ", numSaison=" + numSaison + "]";
 	}
 	
-	public int getNbEpisode()
+	public long getNbEpisode()
 	{
-		int nb=0;
-		List<Episode> episodes = daoMysql.AffichageAllEpisodesByIdsaison(this.getId());
-		nb = episodes.size();
-		return nb;
+		return daoMysql.AfficherNbEp(this.getId());
 	}
 
 	

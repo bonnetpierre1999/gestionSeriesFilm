@@ -3,3 +3,7 @@ Fermer les connexions DB (SHOW PROCESSLIST)
 chercher par mot ou par diffusion
 
 ajax
+
+moyen diffusion en liste
+ajouter serie pareil que modifier
+onglet commande

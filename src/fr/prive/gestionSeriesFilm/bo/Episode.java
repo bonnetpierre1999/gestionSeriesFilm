@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NamedQueries({ 
 	@NamedQuery(name = "listeEpisodeById", query = "FROM Episode e where saison_id = :var order by numEpisode"),
-	@NamedQuery(name = "findTousEpisodeNonVusBySerie", query = "FROM Episode e where vu = false and saison_id = :var order by numEpisode")
+	@NamedQuery(name = "findTousEpisodeNonVusBySaison", query = "FROM Episode e where vu = false and saison_id = :var order by numEpisode")
 })
 public class Episode {
 	
