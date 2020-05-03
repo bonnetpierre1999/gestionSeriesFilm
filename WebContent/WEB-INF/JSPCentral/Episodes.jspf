@@ -26,7 +26,7 @@
 			</c:if>
 		
 			<div style="max-width:1200px">
-				<TABLE class="table table-striped">
+				<TABLE class="table-light" id="myTable">
 					<c:forEach var="episode" items="${listeEpisode}">
 						<tr>
 							
@@ -62,7 +62,7 @@
 									<input type="hidden" value="${idSaison}" name="idSaison" id="idSaison" />
 									<input type="hidden" value="${episode.id}" name="idEpisode" id="idEpisode" />
 									<input name="btnSupprimer" type="submit"
-										id="supprimer" value="Supprimer" />
+										id="supprimer" value="Supprimer" onclick='return confirm("Souhaitez-vous supprimer l épisode ${episode.numEpisode} de la saison ${saisonChoisie.numSaison} de ${serieChoisie.nom}  ?")' />
 								</form>
 							</td>
 						</c:if>

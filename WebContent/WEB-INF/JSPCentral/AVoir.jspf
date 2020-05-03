@@ -27,10 +27,14 @@
 	<br>
 	
 	<c:if test="${action == null || action == 'next'}">
+		<input type="text" id="myInput" onclick="filtreSeries()" onkeyup="filtreSeries()" onpaste="filtreSeries()" placeholder="Filtrer par nom" title="Filtrer par nom">
 		<div style="max-width:1200px">
-			<TABLE class="table table-striped">
+			<TABLE class="table-light" id="myTable">
 				<c:forEach var="episode" items="${listeEpisode}">
 					<tr>
+						<td style="display: none";>${episode.getSaison().getSerie().getNom()}</td>
+						<td style="display: none";>${episode.getSaison().getSerie().moyenDiffusion}</td>
+						
 						<td>${episode.getSaison().getSerie().getNom()}  :  Saison ${episode.getSaison().getNumSaison()}  :  Episode ${episode.numEpisode}</td>
 						
 						<c:if test="${episode.getSaison().getSerie().moyenDiffusion  != ''}">
@@ -61,12 +65,17 @@
 	</c:if>
 	
 	<c:if test="${action == 'all'}">
+		<h5>${nbEpisode} épisodes non vus</h5>
+		<input type="text" id="myInput" onclick="filtreSeries()" onkeyup="filtreSeries()" onpaste="filtreSeries()" placeholder="Filtrer par nom" title="Filtrer par nom">
 		<div style="max-width:1200px">
-			<TABLE class="table table-striped">
-			<h5>${nbEpisode} épisodes non vus</h5>
+			<TABLE class="table-light" id="myTable">
 				<c:forEach var="episode" items="${listeEpisode}">
 					<tr>
+						<td style="display: none";>${episode.getSaison().getSerie().getNom()}</td>
+						<td style="display: none";>${episode.getSaison().getSerie().moyenDiffusion}</td>
+						
 						<td>${episode.getSaison().getSerie().getNom()}  :  Saison ${episode.getSaison().getNumSaison()}  :  Episode ${episode.numEpisode}</td>
+						
 						<td width="40px">
 							<form action="<%=request.getContextPath()%>/AVoir" method="post">
 								<input type="hidden" value="all" name="action" id="action" />
@@ -88,12 +97,16 @@
 	</c:if>
 	
 	<c:if test="${action == 'serie'}">
+		<input type="text" id="myInput" onclick="filtreSeries()" onkeyup="filtreSeries()" onpaste="filtreSeries()" placeholder="Filtrer par nom" title="Filtrer par nom">
 		<div class="container-fluid" align="center">
 		
 			<div style="max-width:1200px">
-				<TABLE class="table table-striped">
+				<TABLE class="table-light" id="myTable">
 					<c:forEach var="serie" items="${listeSerie}">
 						<tr>
+							<td style="display: none";>${serie.nom}</td>
+							<td style="display: none";>${serie.moyenDiffusion}</td>
+							
 							<td>${serie.nom} (${serie.getNbEpNonVus()} épisode(s) non vu(s))</td>
 							
 							<c:if test="${serie.moyenDiffusion  != ''}">
@@ -128,10 +141,11 @@
 	
 	<c:if test="${action == 'parSerie'}">
 		<div style="max-width:1200px">
-			<TABLE class="table table-striped">
+			<TABLE class="table-light" id="myTable">
 				<c:forEach var="episode" items="${listeEpisode}">
 					<tr>
 						<td>${episode.getSaison().getSerie().getNom()}  :  Saison ${episode.getSaison().getNumSaison()}  :  Episode ${episode.numEpisode}</td>
+						
 						<td width="40px">
 							<form action="<%=request.getContextPath()%>/AVoir" method="post">
 								<input type="hidden" value="parSerie" name="action" id="action" />

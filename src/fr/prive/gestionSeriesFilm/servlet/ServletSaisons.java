@@ -110,7 +110,7 @@ public class ServletSaisons extends HttpServlet {
 					request.setAttribute("erreur", "oui");
 				}
 				request.setAttribute("nbSaison", nbSaison);
-				//On met la serie en attribut pour pouvoir la réutiliser
+				//On met la serie en attribut pour pouvoir la rÃ©utiliser
 				try {
 					request.setAttribute("serieChoisie", daoMysql.AffichageSerieById(id));
 				} catch (NumberFormatException | daoException e) {

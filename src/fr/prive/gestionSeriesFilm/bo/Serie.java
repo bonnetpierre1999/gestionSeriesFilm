@@ -75,9 +75,6 @@ public class Serie {
 	
 	public long getNbEpNonVus()
 	{
-		//long nb=0;
-		//List<Episode> episodes = daoMysql.AffichageAllEpisodesNonVuByIdSerie(this.getId());
-		//nb = episodes.size();
 		return daoMysql.AfficherNbEpNonVusBySerie(this.getId());
 	}
 	

@@ -46,20 +46,29 @@ public class ServletSerie extends HttpServlet {
 			throws ServletException, IOException {
 		request.setAttribute("erreur", "non");
 		String modifEffectue = "";
+		String ajoutEffectue = "";
 		
 		// ajout d'une serie
-		if (request.getParameter("btnAjouter") != null) {
-			if (!"".equals(request.getParameter("nomSerie"))) {
-				try {
-					Serie s = new Serie(request.getParameter("nomSerie"), "");
-					daoMysql.ajouterSerie(s);
-				} catch (NumberFormatException | daoException e) {
-					request.setAttribute("erreur", "oui");
-				}
-			} else {
-				request.setAttribute("erreur", "oui");
-			}
-		}
+		if (request.getParameter("btnAjouter2") != null) {
+            if (!"".equals(request.getParameter("nomSerie"))) {
+                try {
+                    Serie s = new Serie(request.getParameter("nomSerie"), request.getParameter("diffusion"));
+                    daoMysql.ajouterSerie(s);
+                    ajoutEffectue = "ok";
+                    request.setAttribute("ajoutOK", (Object)"OK");
+                }
+                catch (NumberFormatException | daoException ex5) {
+                    request.setAttribute("erreur", (Object)"oui");
+                    ajoutEffectue = "ko";
+                    request.setAttribute("ajoutOK", (Object)"KO");
+                }
+            }
+            else {
+                request.setAttribute("erreur", (Object)"oui");
+                ajoutEffectue = "ko";
+                request.setAttribute("ajoutOK", (Object)"KO");
+            }
+        }
 		
 		// Suppression d'une serie
 		if (request.getParameter("btnSupprimer") != null) {
@@ -82,17 +91,17 @@ public class ServletSerie extends HttpServlet {
 					int id = Integer.parseInt(request.getParameter("idSerie"));
 					Serie s = new Serie(id,request.getParameter("nomSerie"), request.getParameter("diffusion"), serieFini);
 					daoMysql.ModifierSerie(s);
-					//on signale que l'update est passée en DB
+					//on signale que l'update est passÃ©e en DB
 					modifEffectue = "ok";
 					request.setAttribute("modifOK", "OK");
 				} catch (NumberFormatException | daoException e) {
-					//on signale que l'update n'est pas passée en DB
+					//on signale que l'update n'est pas passÃ©e en DB
 					request.setAttribute("erreur", "oui");
 					modifEffectue = "ko";
 					request.setAttribute("modifOK", "KO");
 				}
 			} else {
-				//on signale que l'update n'est pas passée en DB
+				//on signale que l'update n'est pas passÃ©e en DB
 				request.setAttribute("erreur", "oui");
 				modifEffectue = "ko";
 				request.setAttribute("modifOK", "KO");
@@ -100,9 +109,11 @@ public class ServletSerie extends HttpServlet {
 		}
 		
 		if (request.getParameter("btnAnnuler") != null) {
-			//on signale qu'on a annulé, ce qui nous fera retourner sur les séries sans modifier la DB
+			//on signale qu'on a annulÃ©, ce qui nous fera retourner sur les sÃ©ries sans modifier la DB
 			modifEffectue = "ok";
 			request.setAttribute("modifOK", "OK");
+			ajoutEffectue = "ok";
+			request.setAttribute("ajoutOK", "OK");
 
 		}
 		
@@ -119,7 +130,7 @@ public class ServletSerie extends HttpServlet {
 		}
 		
 		// Affichage des series
-		if (request.getParameter("action") == null || request.getParameter("btnAjouter") != null || request.getParameter("btnSupprimer") != null || "ok".equals(modifEffectue)) {
+        if (request.getParameter("action") == null || request.getParameter("btnAjouter") != null || request.getParameter("btnSupprimer") != null || "ok".equals(modifEffectue) || "ok".equals(ajoutEffectue)) {
 			List<Serie> listeSerie = daoMysql.AffichageAllSerie();
 			request.setAttribute("listeSerie", listeSerie);
 		}

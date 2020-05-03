@@ -29,14 +29,14 @@ public class daoMysql {
 	//                                   OUVERTURE ET FERMETURE DES ENTITYMANAGER                                   //
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	// Créer un EM et ouvrir une transaction
+	// CrÃ©er un EM et ouvrir une transaction
 	private static EntityManager newEntityManager() {
 	   EntityManager em = daoManager.getEntityManager();
 	   em.getTransaction().begin();
 	   return (em);
 	}
 
-	// Fermer un EM et défaire la transaction si nécessaire
+	// Fermer un EM et dÃ©faire la transaction si nÃ©cessaire
 	private static void closeEntityManager(EntityManager em) {
 	   if (em != null) {
 	      if (em.isOpen()) {
@@ -57,7 +57,7 @@ public class daoMysql {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
-	 * Permet d'ajouter une série en BDD
+	 * Permet d'ajouter une sÃ©rie en BDD
 	 * @param serie
 	 * @throws daoException
 	 */
@@ -89,7 +89,7 @@ public class daoMysql {
 	}
 
 	/**
-	 * Permet d'ajouter un épisode en BDD
+	 * Permet d'ajouter un Ã©pisode en BDD
 	 * @param episode
 	 * @throws daoException
 	 */
@@ -109,7 +109,7 @@ public class daoMysql {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
-	 * Permet de modifier une série en BDD
+	 * Permet de modifier une sÃ©rie en BDD
 	 * @param serie
 	 * @throws daoException
 	 */
@@ -125,7 +125,7 @@ public class daoMysql {
 	}
 	
 	/**
-	 * Permet de modifier un épisode en BDD
+	 * Permet de modifier un Ã©pisode en BDD
 	 * @param e
 	 */
 	public static void modifierEpisode(Episode e) {
@@ -145,7 +145,7 @@ public class daoMysql {
 	
 	
 	/**
-	 * Permet de supprimer une série en BDD
+	 * Permet de supprimer une sÃ©rie en BDD
 	 * @param idSerie
 	 * @throws daoException
 	 */
@@ -177,14 +177,14 @@ public class daoMysql {
 		} catch (Exception e) {
 			e.printStackTrace();
 			et.rollback();
-			throw new daoException("Erreur lors de la suppression de la saison n°" + idSaison + " : " + e.getMessage());
+			throw new daoException("Erreur lors de la suppression de la saison nÂ°" + idSaison + " : " + e.getMessage());
 		} finally {
 			em.close();
 		}
 	}
 	
 	/**
-	 * Permet de supprimer un épisode dans la BDD
+	 * Permet de supprimer un Ã©pisode dans la BDD
 	 * @param idEpisode
 	 * @throws daoException
 	 */
@@ -199,7 +199,7 @@ public class daoMysql {
 		} catch (Exception e) {
 			e.printStackTrace();
 			et.rollback();
-			throw new daoException("Erreur lors de la suppression de l'episode n°" + idEpisode + " : " + e.getMessage());
+			throw new daoException("Erreur lors de la suppression de l'episode nÂ°" + idEpisode + " : " + e.getMessage());
 		} finally {
 			em.close();
 		}
@@ -211,7 +211,7 @@ public class daoMysql {
 	
 	
 	/**
-	 * Permet de retourner une série selon son Id
+	 * Permet de retourner une sÃ©rie selon son Id
 	 * @param idSerie
 	 * @return
 	 * @throws daoException
@@ -225,7 +225,7 @@ public class daoMysql {
 			serie = em.find(Serie.class, idSerie);
 			return serie;
 		} catch (Exception e) {
-			throw new daoException("Erreur lors de l'accÃ¨s à la série n°" + idSerie + " : " + e.getMessage());
+			throw new daoException("Erreur lors de l'accÃƒÂ¨s Ã  la sÃ©rie nÂ°" + idSerie + " : " + e.getMessage());
 		} finally {
 			if (em != null) {
 				closeEntityManager(em);
@@ -248,7 +248,7 @@ public class daoMysql {
 			saison = em.find(Saison.class, idSaison);
 			return saison;
 		} catch (Exception e) {
-			throw new daoException("Erreur lors de l'accÃ¨s à la saison n°" + idSaison + " : " + e.getMessage());
+			throw new daoException("Erreur lors de l'accÃƒÂ¨s Ã  la saison nÂ°" + idSaison + " : " + e.getMessage());
 		} finally {
 			if (em != null) {
 				closeEntityManager(em);
@@ -257,7 +257,7 @@ public class daoMysql {
 	}
 	
 	/**
-	 * Permet de retourner un épisode selon son Id
+	 * Permet de retourner un Ã©pisode selon son Id
 	 * @param idEpisode
 	 * @return
 	 * @throws daoException
@@ -271,7 +271,7 @@ public class daoMysql {
 			episode = em.find(Episode.class, idEpisode);
 			return episode;
 		} catch (Exception e) {
-			throw new daoException("Erreur lors de l'accÃ¨s à l'episode n°" + idEpisode + " : " + e.getMessage());
+			throw new daoException("Erreur lors de l'accÃƒÂ¨s Ã  l'episode nÂ°" + idEpisode + " : " + e.getMessage());
 		} finally {
 			if (em != null) {
 				closeEntityManager(em);
@@ -284,7 +284,7 @@ public class daoMysql {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
-	 * Permet de renvoyer toutes les séries
+	 * Permet de renvoyer toutes les sÃ©ries
 	 * @return
 	 */
 	public static List<Serie> AffichageAllSerie() {
@@ -301,7 +301,7 @@ public class daoMysql {
 	}
 	
 	/**
-	 * Permet de renvoyer toutes les saisons d'une série selon un Id 
+	 * Permet de renvoyer toutes les saisons d'une sÃ©rie selon un Id 
 	 * @param id
 	 * @return
 	 */
@@ -318,7 +318,7 @@ public class daoMysql {
 	}
 	
 	/**
-	 * Permet de retourner tous les épisodes d'une saison selon un Id
+	 * Permet de retourner tous les Ã©pisodes d'une saison selon un Id
 	 * @param id
 	 * @return
 	 */
@@ -335,7 +335,7 @@ public class daoMysql {
 	}
 	
 	/**
-	 * Permet de retourner tous les épisodes non vus d'une saison
+	 * Permet de retourner tous les Ã©pisodes non vus d'une saison
 	 * @param idSaison
 	 * @return
 	 */
@@ -355,7 +355,7 @@ public class daoMysql {
 	}
 
 	/**
-	 * Permet de retourner tous les épisodes non vus d'une série
+	 * Permet de retourner tous les Ã©pisodes non vus d'une sÃ©rie
 	 * @param idSerie
 	 * @return
 	 */
@@ -383,7 +383,7 @@ public class daoMysql {
 	}
 	
 	/**
-	 * Permet de retourner tous les épisodes non vus
+	 * Permet de retourner tous les Ã©pisodes non vus
 	 * @return
 	 */
 	public static List<Episode> AffichageAllEpisodesNonVu() {
@@ -410,7 +410,7 @@ public class daoMysql {
 	}
 	
 	/**
-	 * Permet de retourner les séries avec au moins un épisode non vu
+	 * Permet de retourner les sÃ©ries avec au moins un Ã©pisode non vu
 	 * @return
 	 */
 	public static List<Serie> AffichageSerieAvecEpisodeNonVu() {
@@ -437,7 +437,7 @@ public class daoMysql {
 	}
 	
 	/**
-	 * Permet de retourner les prochains épisode à voir (pour chaque série)
+	 * Permet de retourner les prochains Ã©pisode Ã  voir (pour chaque sÃ©rie)
 	 * @return
 	 */
 	public static List<Episode> AffichageNextEpisode() {
@@ -468,7 +468,7 @@ public class daoMysql {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Permet de retourner le nombre de saison pour une série donnée
+	 * Permet de retourner le nombre de saison pour une sÃ©rie donnÃ©e
 	 * @param idSerie
 	 * @return
 	 */
@@ -488,7 +488,7 @@ public class daoMysql {
 	}
 
 	/**
-	 * Permet de retourner le nombre d'épisode pour une saison donnée
+	 * Permet de retourner le nombre d'Ã©pisode pour une saison donnÃ©e
 	 * @param idSaison
 	 * @return
 	 */
@@ -508,7 +508,7 @@ public class daoMysql {
 	}
 
 	/**
-	 * Permet de retourner le nombre d'épisodes non vus pour une série donnée
+	 * Permet de retourner le nombre d'Ã©pisodes non vus pour une sÃ©rie donnÃ©e
 	 * @param idSerie
 	 * @return
 	 */

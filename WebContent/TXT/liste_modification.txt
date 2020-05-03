@@ -28,7 +28,7 @@ Ajout fonction "Episode à voir" :
  - Modification index : ajout de la page AVoir
  
 
-Ajout modif base Serie (diff & fini?)
+modif base Serie (diff & fini?)
  - Modification base de donnée (supp annee / ajout du moyen de diffusion et si la serie est finie ou pas) 
  - Modification Servlet Serie pour prendre en compte la modif de la base
  - Modification JSPCentral Serie pour prendre en compte les modif de la base et pouvoir modifier les series (diff & fini?)
@@ -42,14 +42,25 @@ Ajout Facilitation acces ep non vus n°1
   - Ajout pastille verte ou rouge pour savoir si série vu au complet (Série)
   - Ajout moyen de diffusion dans AVoir (par série / next)
   
-Ajout Facilitation acces ep non vus n°2
+Facilitation acces ep non vus n°2
   - Ajout des images des logos des diff à la place du texte (Serie / AVoir)
   - Ajout si la série est finie ou pas (AVoir - Par série)
   - Ajout bouton pou retourner en haut de la page
   
- Ajout Facilitation acces ep non vus n°3
+Facilitation acces ep non vus n°3
  - Ajout pages Erreur 404 & 500
  - Mise en ordre des requetes (daoMysql)
  - Requete unique (aggration) pour compter le nombre d'episode/saison
  - Ajout du nombre total d'épisodes non vus (AVoir - Tous)
  
+Ajout Filtre & Modif Ajout série
+ - Modification de l'ajout d'une série (meme style que la modification)
+ - Ajout fonctinnalité "filtre" (Serie & AVoir)
+ 
+Modification liées au filtre et confirmation suppression 
+ - Modification couleurs tableau
+ - Prise en compte du nom uniquement pour le filtre (et plus de saison et episode)
+ - Surlignage couleur lorsque l'on surpasse la ligne
+ - ajout event filtre (paste / onclick)
+ - Ajout de confirmation lors de la suppression (serie / saison / episode)
+ - Header fixer (meme apres scroll)

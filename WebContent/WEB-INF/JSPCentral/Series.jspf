@@ -1,26 +1,29 @@
 
 	
-	<c:if test="${action == null || modifOK == 'OK'}">
+	<c:if test="${action == null || modifOK == 'OK' || ajoutOK == 'OK'}">
 		<div class="container-fluid" align="center">
 			<h3>Liste des Séries</h3>
 			<br>
 			
-			
+		
 			<div class="container-fluid">
 				<div>
 					<form method="POST" name="ajouterSerieForm"	action="<%=request.getContextPath()%>/Series">
-						Ajouter une série : 
-						<input type="text" name="nomSerie" id="nomSerie" placeholder="Nom de la série?"> 
-						<input type="submit" value="Ajouter" name="btnAjouter" title="Ajouter cette série ?">
+						<input type="hidden" value="ajouter" name="action"	id="action" />
+						<input type="submit" value="Ajouter une série" name="btnAjouter" title="Ajouter cette série ?">
 					</form>
+					<br>
+					<input type="text" id="myInput" onclick="filtreSeries()" onkeyup="filtreSeries()" onpaste="filtreSeries()" placeholder="Filtrer par nom" title="Filtrer par nom">
 				</div>
 			</div>
-			<br>
 		
 			<div style="max-width:1200px">
-				<TABLE class="table table-striped">
+				<TABLE class="table-light" id="myTable">
 					<c:forEach var="serie" items="${listeSerie}">
 						<tr>
+							<td style="display: none";>${serie.nom}</td>
+							<td style="display: none";>${serie.moyenDiffusion}</td>
+							
 							<c:if test="${serie.getNbEpNonVus() == 0}">
 								<td width="40px"><div id="cerclevert"></div></td>
 							</c:if>
@@ -64,10 +67,11 @@
 								</form>
 							</td>
 							<td width="40px">
-								<form action="<%=request.getContextPath()%>/Series" method="post">
+								<form action="<%=request.getContextPath()%>/Series" method="post" name='suppression'>
 									<input type="hidden" value="${serie.id}" name="idSerie"
-										id="idSerie" /><input name="btnSupprimer" type="submit"
-										id="supprimer" value="Supprimer" />
+										id="idSerie" />
+										<input name="btnSupprimer" type="submit"
+										id="supprimer" value="Supprimer" onclick='return confirm("Souhaitez-vous supprimer ${serie.nom} ?")'/>
 								</form>
 							</td>
 						</tr>
@@ -78,7 +82,7 @@
 	</c:if>
 	
 	<c:if test="${action == 'modifier' || modifOK == 'KO'}">
-		<h3 class="text-success">Modifier cette série</h3>
+		<h3>Modifier cette série</h3>
 			<br>
 			<div>
 				<c:forEach var="serie" items="${listeSerie}">
@@ -99,4 +103,19 @@
 					</form>
 				</c:forEach>
 			</div>
+	</c:if>
+	
+	<c:if test="${action == 'ajouter' || ajoutOK == 'KO'}">
+		<br>
+		<h3>Ajout d'une série</h3>
+		<br>
+		<div>
+			<form method="POST" name="modifierSerieForm" action="<%=request.getContextPath()%>/Series">
+				<input type="hidden" value="ajouter2" name="action"	id="action" />
+				<input type="text" name="nomSerie" id="nomSerie" placeholder="Nom de la série?"><br> <br> 
+				<input type="text" name="diffusion" id="diffusion" placeholder="Moyen de diffusion?"><br> <br> 
+				<input type="submit" value="Ajouter" name="btnAjouter2" title="Ajouter cette série?">
+				<input type="submit" value="Annuler" name="btnAnnuler" title="Annuler">
+			</form>
+		</div>
 	</c:if>

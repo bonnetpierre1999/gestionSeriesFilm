@@ -1,12 +1,14 @@
 <!-- pour pouvoir l'inclure par la suite -->
-<div class="container-fluid" align="center">
-	<br>
-	<h1 class="text-success">Gestion des séries et films</h1>
-	<div>
-		<button type="button" name="Series" class="btn btn-primary"
-			onclick="window.location.href = '<%=request.getContextPath()%>/Series';">LISTES DES SERIES</button>
-		<button type="button" name="Series" class="btn btn-warning"
-			onclick="window.location.href = '<%=request.getContextPath()%>/AVoir';">À VOIR</button>
+<div class="sticky-top" style="background-color:white">
+	<div class="container-fluid" align="center">
+		<br>
+		<h1 class="text-success">Gestion des séries et films</h1>
+		<div>
+			<button type="button" name="Series" class="btn btn-primary"
+				onclick="window.location.href = '<%=request.getContextPath()%>/Series';">LISTES DES SERIES</button>
+			<button type="button" name="Series" class="btn btn-warning"
+				onclick="window.location.href = '<%=request.getContextPath()%>/AVoir';">À VOIR</button>
+		</div>
+		<hr style="border-color: black">
 	</div>
-	<hr style="border-color: black">
 </div>

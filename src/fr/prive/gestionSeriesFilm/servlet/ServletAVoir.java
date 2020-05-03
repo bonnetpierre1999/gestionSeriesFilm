@@ -78,7 +78,7 @@ public class ServletAVoir extends HttpServlet {
 			}
 		}
 			
-		// affichage du prochain episode à voir par serie
+		// affichage du prochain episode Ã  voir par serie
 		if (request.getParameter("btnNext") != null || "next".equals(request.getParameter("action")) || request.getParameter("action") == null) {
 			try {	
 				List<Episode> listeEpisode = daoMysql.AffichageNextEpisode();

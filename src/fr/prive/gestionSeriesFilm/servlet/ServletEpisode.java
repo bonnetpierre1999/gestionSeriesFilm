@@ -102,7 +102,7 @@ public class ServletEpisode extends HttpServlet {
 				}
 				request.setAttribute("nbEpisode", nbEpisode);
 				
-				//On met la serie et la saison en attribut pour pouvoir la réutiliser
+				//On met la serie et la saison en attribut pour pouvoir la rÃ©utiliser
 				try {
 					request.setAttribute("serieChoisie", daoMysql.AffichageSerieById(idSerie));
 					request.setAttribute("saisonChoisie", daoMysql.AffichageSaisonById(id));
