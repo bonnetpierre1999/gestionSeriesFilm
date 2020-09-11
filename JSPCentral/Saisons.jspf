@@ -1,0 +1,50 @@
+<!-- Affichage des saisons de la séries sélectionnée -->
+<c:if test="${action == null}">
+	<div class="container-fluid" align="center">
+		<div style="max-width:1200px">
+			<TABLE class="table-light" id="myTable">
+				<c:forEach var="saison" items="${listeSaison}">
+					<tr>
+						<td>Saison ${saison.numSaison} (${saison.getNbEpisode()} episode(s))</td>
+						<td width="40px">
+							<form action="<%=request.getContextPath()%>/Episodes" method="post">
+								<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+								<input type="hidden" value="${saison.id}" name="idSaison"
+									id="idSaison" />
+								<input name="btnEpisodes" type="submit"
+									id="episode" value="Liste des episodes" />
+							</form>
+						</td>
+						
+						<c:if test="${saison.numSaison == nbSaison && serieChoisie.serieFini  == false}">
+							<td width="40px">
+								<form action="<%=request.getContextPath()%>/Saisons" method="post">
+									<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+									<input type="hidden" value="${saison.numSaison}" name="NumSaison" id="NumSaison" />
+									<input type="hidden" value="${saison.id}" name="idSaison" id="idSaison" />
+									<input name="btnSupprimer" type="submit"
+										id="supprimer" value="Supprimer" onclick='return confirm("Souhaitez-vous supprimer la saison ${saison.numSaison} de ${serieChoisie.nom}  ?")' />
+								</form>
+							</td>
+						</c:if>
+						
+						<c:if test="${saison.numSaison != nbSaison && serieChoisie.serieFini  == false}">
+							<td width="40px"></td>
+						</c:if>
+					</tr>
+				</c:forEach>
+			</TABLE>
+		</div>
+		
+		<!-- Bouton permettant de retourner à la liste des séries -->
+		<div class="container-fluid" >
+			<div>
+				<form method="POST" name="retourSeries"	action="<%=request.getContextPath()%>/Series">
+					<input type="submit" value="Retourner à la liste des séries" name="btnRetour" title="Retourner à la liste des séries">
+				</form>
+			</div>
+		</div>
+		
+	</div>
+</c:if>
+

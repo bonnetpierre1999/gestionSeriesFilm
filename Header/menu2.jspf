@@ -1,0 +1,127 @@
+<!-- Menu des séries permettant de filtrer et d'ajouter une série-->
+<c:if test="${nomMenu == 'serie'}">
+	<c:if test="${action != 'modifier' && modifOK != 'KO' && action != 'ajouter' && ajoutOK != 'KO'}">
+		<div class="container-fluid" align="center">
+			<h3>Liste des Séries</h3>
+			<br>
+		
+			<div>
+				<input type="text" id="myInput" onclick="filtreSeries()" onkeyup="filtreSeries()" onpaste="filtreSeries()" placeholder="Filtrer par nom" title="Filtrer par nom">
+				<form method="POST" name="ajouterSerieForm"	action="<%=request.getContextPath()%>/Series">
+					<input type="hidden" value="ajouter" name="action"	id="action" />
+					<input type="submit" value="Ajouter une série" name="btnAjouter" title="Ajouter cette série ?">
+				</form>
+			</div>
+			<br>
+		</div>
+	</c:if>
+</c:if>
+
+<!-- Menu des saisons permettant d'ajouter une saison-->
+<c:if test="${nomMenu == 'saison'}">
+	<div class="container-fluid" align="center">	
+		<c:if test="${serieChoisie != null}">
+			<h2>${serieChoisie.nom}</h2>
+		</c:if>
+		<br>
+	
+		<c:if test="${serieChoisie.serieFini  == false}">
+			<div class="container-fluid">
+				<div>
+					<form method="POST" name="ajouterSaisonsForm"	action="<%=request.getContextPath()%>/Saisons">
+						Nombre d'épisodes :  
+						<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+						<input type="hidden" value="${nbSaison + 1}" name="idSaison" id="idSaison" />
+						<input type="number" name="nbEpisodes" id="nbEpisodes" > 
+						<input type="submit" value="Ajouter une saison ${nbSaison + 1} ?" name="btnAjouter" title="Ajouter une saison ${nbSaison + 1}">
+					</form>
+				</div>
+			</div>
+			<br>
+		</c:if>
+	</div>
+</c:if>
+
+<!-- Menu des épisodes permettant d'ajouter un épisode-->
+<c:if test="${nomMenu == 'episode'}">
+	<div class="container-fluid" align="center">
+		
+			<c:if test="${serieChoisie != null}">
+				<h2>${serieChoisie.nom}</h2>
+			</c:if>
+			<c:if test="${saisonChoisie != null}">
+				<div class="row">
+					<div class="col-4"></div>
+						<div class="col">
+							<c:if test="${saisonPrec.id != 0}">
+						  		<a href="<%=request.getContextPath()%>/Episodes?idSerie=${idSerie}&idSaison=${saisonPrec.id}" style="color:#000000;">
+							    	<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								  	<path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+									</svg>
+						 		</a>
+						 	</c:if>
+						</div>
+						<div class="col">
+							<h2>Saison ${saisonChoisie.numSaison}</h2>
+						</div>
+						<div class="col">
+							<c:if test="${saisonSuiv.id != 0}">
+								<a href="<%=request.getContextPath()%>/Episodes?idSerie=${idSerie}&idSaison=${saisonSuiv.id}" style="color:#000000;">
+								   	<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+									</svg>
+								</a>
+							</c:if>
+						</div>
+					 <div class="col-4"> </div>
+				</div>
+			</c:if>
+			<br>
+			
+			<c:if test="${serieChoisie.serieFini  == false}">
+				<div class="container-fluid">
+					<div>
+						<form method="POST" name="ajouterEpisodeForm" action="<%=request.getContextPath()%>/Episodes">
+							<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+							<input type="hidden" value="${idSaison}" name="idSaison" id="idSaison" />
+							<input type="hidden" value="${nbEpisode + 1}" name="numEpisode" id="numEpisode" />
+							<input type="submit" value="Ajouter un épisode ${nbEpisode + 1}" name="btnAjouter" title="Ajouter un épisode ${nbEpisode + 1}">
+						</form>
+					</div>
+				</div>
+				<br>
+			</c:if>
+		</div>
+</c:if>
+
+<!-- Menu des épisodes à voir permettant de filtrer et de choisir l'affichage des épisodes non vus-->
+<c:if test="${nomMenu == 'AVoir'}">
+	<div class="container-fluid" align="center">
+		<TABLE>
+			<tr>
+				<td>
+					<form method="POST" name="ajouterEpisodeForm" action="<%=request.getContextPath()%>/AVoir">
+						<input type="hidden" value="serie" name="action" id="action" />
+						<input type="submit" value="Par Série" name="btnSerie" title="Par Série" style="width:200px">
+					</form>
+				</td>
+				<td>
+					<form method="POST" name="ajouterEpisodeForm" action="<%=request.getContextPath()%>/AVoir">
+						<input type="hidden" value="next" name="action" id="action" />
+						<input type="submit" value="Prochain par série" name="btnNext" title="Prochain par série" style="width:200px">
+					</form>
+				</td>
+				<td>
+					<form method="POST" name="ajouterEpisodeForm" action="<%=request.getContextPath()%>/AVoir">
+						<input type="hidden" value="all" name="action" id="action" />
+						<input type="submit" value="Épisodes non vus (${nbEpisode})" name="btnAll" title="Épisodes non vus (${nbEpisode})" style="width:200px">
+					</form>
+				</td>
+			</tr>
+		</TABLE>
+		<br>
+		<c:if test="${action != 'parSerie'}">
+			<input type="text" id="myInput" onclick="filtreSeries()" onkeyup="filtreSeries()" onpaste="filtreSeries()" placeholder="Filtrer par nom" title="Filtrer par nom">
+		</c:if>
+	</div>
+</c:if>

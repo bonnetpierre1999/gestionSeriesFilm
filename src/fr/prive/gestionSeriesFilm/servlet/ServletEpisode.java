@@ -40,11 +40,13 @@ public class ServletEpisode extends HttpServlet {
 			throws ServletException, IOException {
 		request.setAttribute("erreur", "non");
 		
+		
+		
 		if (request.getParameter("idSaison") != null)
 		{
 			int id = Integer.parseInt(request.getParameter("idSaison"));
-			request.setAttribute("idSaison", request.getParameter("idSaison"));
 			int idSerie = Integer.parseInt(request.getParameter("idSerie"));
+			request.setAttribute("idSaison", request.getParameter("idSaison"));
 			request.setAttribute("idSerie", request.getParameter("idSerie"));
 			
 			
@@ -64,14 +66,14 @@ public class ServletEpisode extends HttpServlet {
 			if (request.getParameter("btnVU") != null) {
 				try {	
 					int idEpisode = Integer.parseInt(request.getParameter("idEpisode"));
-					Episode episode = daoMysql.AffichageEpisodeById(idEpisode);
 					int vue = Integer.parseInt(request.getParameter("vue"));
 					boolean vu = false;
 					if (vue == 1)
 					{
 						vu=true;
 					}
-					Episode e = new Episode(episode.getId(), episode.getSaison(), episode.getNumEpisode(), vu);
+					Episode e = daoMysql.AffichageEpisodeById(idEpisode);
+					e.setVu(vu);
 					daoMysql.modifierEpisode(e);
 				} catch (NumberFormatException | daoException e) {
 					request.setAttribute("erreur", "oui");
@@ -106,6 +108,9 @@ public class ServletEpisode extends HttpServlet {
 				try {
 					request.setAttribute("serieChoisie", daoMysql.AffichageSerieById(idSerie));
 					request.setAttribute("saisonChoisie", daoMysql.AffichageSaisonById(id));
+					int numSaison = daoMysql.AffichageSaisonById(id).getNumSaison();
+					request.setAttribute("saisonPrec", daoMysql.AffichageSaisonPrec(idSerie, numSaison));
+					request.setAttribute("saisonSuiv", daoMysql.AffichageSaisonSuiv(idSerie, numSaison));
 				} catch (NumberFormatException | daoException e) {
 					request.setAttribute("erreur", "oui");
 				}

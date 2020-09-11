@@ -125,6 +125,22 @@ public class daoMysql {
 	}
 	
 	/**
+	 * Permet de modifier une saison en BDD
+	 * @param saison
+	 * @throws daoException
+	 */
+	public static void ModifierSaison(Saison saison) throws daoException {
+		EntityManager em = null;
+		try {
+			em = newEntityManager();
+			em.merge(saison);
+			em.getTransaction().commit();
+		} finally {
+			closeEntityManager(em);
+		}
+	}
+	
+	/**
 	 * Permet de modifier un épisode en BDD
 	 * @param e
 	 */
@@ -527,6 +543,11 @@ public class daoMysql {
 		}
 	}
 	
+	/**
+	 * Permet de retourner le nombre d'épisodes non au total
+	 * @param idSerie
+	 * @return
+	 */
 	public static Long AfficherNbEpNonVus() {
 		EntityManager em = daoManager.getEntityManager();
 		long nb = 0;
@@ -540,6 +561,55 @@ public class daoMysql {
 				closeEntityManager(em);
 		     }
 		}
+		
 	}
+	
+	/**
+	 * Permet de renvoyer la saison précédente d'une série selon un Id 
+	 * @param idSerie, numSaison
+	 * @return
+	 */	
+	public static Saison AffichageSaisonPrec(int idSerie, int numSaison) {
+		EntityManager em = daoManager.getEntityManager();
+		try {
+			TypedQuery<Saison> query = em.createNamedQuery("findSaisonPrec", Saison.class);
+			query.setParameter("var", idSerie);
+			query.setParameter("var2", numSaison - 1);
+			List<Saison> s = query.getResultList();
+			Saison saison = new Saison();
+			if (!s.isEmpty()) {
+				saison = s.get(0);
+			}
+			return saison;
+		} finally {
+			closeEntityManager(em);
+		}
+
+	}
+	
+	/**
+	 * Permet de renvoyer la saison suivante d'une série selon un Id 
+	 * @param idSerie, numSaison
+	 * @return
+	 */	
+	public static Saison AffichageSaisonSuiv(int idSerie, int numSaison) {
+		EntityManager em = daoManager.getEntityManager();
+		try {
+			TypedQuery<Saison> query = em.createNamedQuery("findSaisonSuiv", Saison.class);
+			query.setParameter("var", idSerie);
+			query.setParameter("var2", numSaison + 1);
+			List<Saison> s = query.getResultList();
+			Saison saison = new Saison();
+			if (!s.isEmpty()) {
+				saison = s.get(0);
+			}
+			return saison;
+		} finally {
+			closeEntityManager(em);
+		}
+		
+	}
+	
+	
 	
 }

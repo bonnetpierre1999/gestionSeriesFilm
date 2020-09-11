@@ -26,7 +26,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @NamedQueries({ 
 	@NamedQuery(name = "listeSaisonById", query = "FROM Saison s where serie_id = :var order by numSaison"),
-	@NamedQuery(name = "findNbSaisonBySerie", query = "SELECT count(*) FROM Saison s where serie_id = :var ")
+	@NamedQuery(name = "findNbSaisonBySerie", query = "SELECT count(*) FROM Saison s where serie_id = :var2 "),
+	@NamedQuery(name = "findSaisonPrec", query = "FROM Saison s where serie_id = :var and numSaison = :var2 "),
+	@NamedQuery(name = "findSaisonSuiv", query = "FROM Saison s where serie_id = :var and numSaison = :var2 ")
+	/*select * from saison where numSaison = (select numSaison-1 from Saison where id = ???) and serie_id = (select serie_id from Saison where id = ???)*/
 })
 public class Saison {
 	

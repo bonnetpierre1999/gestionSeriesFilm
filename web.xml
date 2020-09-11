@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>GestionSeriesFilm</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- servlet des series -->
+	<servlet>
+		<servlet-name>ServletSerie</servlet-name>
+		<servlet-class>fr.prive.gestionSeriesFilm.servlet.ServletSerie</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServletSerie</servlet-name>
+		<url-pattern>/Series</url-pattern>
+	</servlet-mapping>
+	
+	<!-- servlet des saisons -->
+	<servlet>
+		<servlet-name>ServletSaisons</servlet-name>
+		<servlet-class>fr.prive.gestionSeriesFilm.servlet.ServletSaisons</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServletSaisons</servlet-name>
+		<url-pattern>/Saisons</url-pattern>
+	</servlet-mapping>
+	
+	<!-- servlet des episodes -->
+	<servlet>
+		<servlet-name>ServletEpisode</servlet-name>
+		<servlet-class>fr.prive.gestionSeriesFilm.servlet.ServletEpisode</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServletEpisode</servlet-name>
+		<url-pattern>/Episodes</url-pattern>
+	</servlet-mapping>
+	
+	<!-- servlet des episodes à voir -->
+	<servlet>
+		<servlet-name>ServletAVoir</servlet-name>
+		<servlet-class>fr.prive.gestionSeriesFilm.servlet.ServletAVoir</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServletAVoir</servlet-name>
+		<url-pattern>/AVoir</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ERROR PAGE -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/Erreurs/erreur404.jsp</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/Erreurs/erreur500.jsp</location>
+	</error-page>
+	
+</web-app>

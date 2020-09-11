@@ -1,0 +1,13 @@
+Fermer les connexions DB (SHOW PROCESSLIST)
+
+ajax
+
+
+
+comptage ep all si filtre
+
+
+
+Onglet Serie non finies / finies
+
+Onglet "Reprise" pour remettre en "non vu" toutes une série/saison

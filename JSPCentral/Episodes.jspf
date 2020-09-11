@@ -1,0 +1,64 @@
+<!-- Affiche les épisode de la saisons sélectionnée -->
+<c:if test="${action == null}">
+	<div class="container-fluid" align="center">
+		<div style="max-width:1200px">
+			<TABLE class="table-light" id="myTable">
+				<c:forEach var="episode" items="${listeEpisode}">
+					<tr>
+						
+					<c:if test="${episode.vu == true}">
+						<td width="40px"><div id="cerclevert"></div></td>
+					</c:if>
+					<c:if test="${episode.vu == false}">
+						<td width="40px"><div id="cerclerouge"></div></td>
+					</c:if>
+					<td>Episode ${episode.numEpisode}</td>
+					<td width="40px">
+						<form action="<%=request.getContextPath()%>/Episodes" method="post">
+							<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+							<input type="hidden" value="${idSaison}" name="idSaison" id="idSaison" />
+							<input type="hidden" value="${episode.id}" name="idEpisode" id="idEpisode" />
+							<input type="hidden" value="${episode.numEpisode}" name="numEpisode" id="numEpisode" />
+							<c:if test="${episode.vu == true}">
+								<input type="hidden" value="0" name="vue" id="vue" />
+								<input name="btnVU" type="submit" value="Non vu" style="width:75px" />
+							</c:if>
+							<c:if test="${episode.vu == false}">
+								<input type="hidden" value="1" name="vue" id="vue" />
+								<input name="btnVU" type="submit" value="Vu" style="width:75px" />
+							</c:if>
+						</form>
+					</td>
+						
+						
+					<c:if test="${episode.numEpisode == nbEpisode && serieChoisie.serieFini  == false}">
+						<td width="40px">
+							<form action="<%=request.getContextPath()%>/Episodes" method="post">
+								<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+								<input type="hidden" value="${idSaison}" name="idSaison" id="idSaison" />
+								<input type="hidden" value="${episode.id}" name="idEpisode" id="idEpisode" />
+								<input name="btnSupprimer" type="submit"
+									id="supprimer" value="Supprimer" onclick='return confirm("Souhaitez-vous supprimer l épisode ${episode.numEpisode} de la saison ${saisonChoisie.numSaison} de ${serieChoisie.nom}  ?")' />
+							</form>
+						</td>
+					</c:if>
+					<c:if test="${episode.numEpisode != nbEpisode && serieChoisie.serieFini  == false}">
+						<td width="40px"></td>
+					</c:if>
+					</tr>
+				</c:forEach>
+			</TABLE>
+		</div>
+		
+		<!-- Bouton permettant de revenir au choix des saisons -->
+		<div class="container-fluid">
+			<div>
+				<form method="POST" name="retourSeries"	action="<%=request.getContextPath()%>/Saisons">
+					<input type="hidden" value="${idSerie}" name="idSerie" id="idSerie" />
+					<input type="submit" value="Retourner à la liste des saisons" name="btnRetour" title="Retourner à la liste des saisons">
+				</form>
+			</div>
+		</div>
+		
+	</div>
+</c:if>

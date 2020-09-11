@@ -52,14 +52,16 @@ public class ServletAVoir extends HttpServlet {
 		if (request.getParameter("btnVU") != null) {
 			try {	
 				int idEpisode = Integer.parseInt(request.getParameter("idEpisode"));
-				Episode episode = daoMysql.AffichageEpisodeById(idEpisode);
+				//Episode episode = daoMysql.AffichageEpisodeById(idEpisode);
 				int vue = Integer.parseInt(request.getParameter("vue"));
 				boolean vu = false;
 				if (vue == 1)
 				{
 					vu=true;
 				}
-				Episode e = new Episode(episode.getId(), episode.getSaison(), episode.getNumEpisode(), vu);
+				//Episode e = new Episode(episode.getId(), episode.getSaison(), episode.getNumEpisode(), vu);
+				Episode e = daoMysql.AffichageEpisodeById(idEpisode);
+				e.setVu(vu);
 				daoMysql.modifierEpisode(e);
 			} catch (NumberFormatException | daoException e) {
 				request.setAttribute("erreur", "oui");
@@ -71,8 +73,6 @@ public class ServletAVoir extends HttpServlet {
 			try {	
 				List<Episode> listeEpisode = daoMysql.AffichageAllEpisodesNonVu();
 				request.setAttribute("listeEpisode", listeEpisode);
-				Long nbEpisode = daoMysql.AfficherNbEpNonVus();
-				request.setAttribute("nbEpisode", nbEpisode);
 			} catch (NumberFormatException e) {
 				request.setAttribute("erreur", "oui");
 			}
@@ -109,7 +109,10 @@ public class ServletAVoir extends HttpServlet {
 			}
 		}
 				
-	
+		//nb episodes non vus
+		Long nbEpisode = daoMysql.AfficherNbEpNonVus();
+		request.setAttribute("nbEpisode", nbEpisode);
+		
 		request.setAttribute("nomMenu", "AVoir");
 		request.setAttribute("action", request.getParameter("action"));
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/");
